@@ -9,8 +9,10 @@ import 'package:flutter_app/demoBloc/widget/BlocScreen.dart';
 import 'package:flutter_app/gridView/GridScreen.dart';
 import 'package:flutter_app/listDemo/listView.dart';
 import 'package:flutter_app/notification/NotiScreen.dart';
+import 'package:flutter_app/pageSlide/PageSlideDemo.dart';
 import 'package:flutter_app/shoppingCart/screen/cartList.dart';
 import 'package:flutter_app/snake/SnakeScreen.dart';
+import 'package:flutter_app/socket/SocketDemo.dart';
 import 'package:flutter_app/ticTacToe/TicTacToe.dart';
 import 'package:flutter_app/transition/ScaleTransition.dart';
 import 'package:flutter_app/transition/SlideTransition.dart';
@@ -22,7 +24,20 @@ import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/services.dart';
 
+import 'cognito/CognitoScreen.dart';
+import 'deepLink/DeepLinkScreen.dart';
+import 'package:uni_links/uni_links.dart';
+
 List<CameraDescription> cameras;
+
+Future<String> initUniLink() async {
+  try {
+    String initialLink = await getInitialLink();
+    print('initialLink: $initialLink');
+  } on PlatformException {
+    print('initialLink: error ');
+  }
+}
 
 Future<void> main() async {
   cameras = await availableCameras();
@@ -30,6 +45,15 @@ Future<void> main() async {
   runApp(MaterialApp(
     title: 'navigation',
     home: MyApp(),
+    initialRoute: '/',
+    onGenerateRoute: (setting) {
+      switch (setting.name) {
+        case '/':
+          return MaterialPageRoute(builder: (_) => MyApp());
+        case '/SecondRoute':
+          return ScaleRoute(widget: SecondRoute());
+      }
+    },
   ));
 }
 
@@ -42,6 +66,44 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  StreamSubscription<Uri> _linksStreamSubscription;
+
+  _initPlatformState() async {
+    try {
+      String initialLink = await getInitialLink();
+      print('link : $initialLink');
+    } on PlatformException {
+      print('error');
+    }
+
+    _linksStreamSubscription = getUriLinksStream().listen((Uri link) {
+      print('link listener: $link');
+
+      var query = link.queryParameters;
+
+      var name = query["name"];
+      var email = query["email"];
+      var confirmationCode = query["confirmationCode"];
+      var picture = query["picture"];
+
+      print(
+          'name : $name - email : $email - confirmationCode : $confirmationCode - picture : $picture');
+    }, onError: (err) {
+      print('link listener: $err');
+    });
+  }
+
+  @override
+  void dispose() {
+    _linksStreamSubscription.cancel();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initPlatformState();
+  }
+
   @override
   Widget build(BuildContext context) {
     FocusScope.of(context).requestFocus(new FocusNode());
@@ -54,7 +116,8 @@ class MyAppState extends State<MyApp> {
         child: RaisedButton(
             child: Text("next"),
             onPressed: () {
-              Navigator.push(context, ScaleRoute(widget: SecondRoute()));
+              Navigator.pushNamed(context, '/SecondRoute');
+//              Navigator.push(context, ScaleRoute(widget: SecondRoute()));
             }),
       ),
     );
@@ -176,19 +239,50 @@ class SecondRoute extends StatelessWidget {
                 RaisedButton(
                   child: Text("chat"),
                   onPressed: () {
-                    Navigator.push(context, SlideRightRoute(widget: ChatScreen()));
+                    Navigator.push(
+                        context, SlideRightRoute(widget: ChatScreen()));
                   },
                 ),
                 RaisedButton(
                   child: Text("tictactoe"),
                   onPressed: () {
-                    Navigator.push(context, SlideRightRoute(widget: TicTacToe()));
+                    Navigator.push(
+                        context, SlideRightRoute(widget: TicTacToe()));
                   },
                 ),
                 RaisedButton(
                   child: Text("snake"),
                   onPressed: () {
-                    Navigator.push(context, SlideRightRoute(widget: SnakeScreen()));
+                    Navigator.push(
+                        context, SlideRightRoute(widget: SnakeScreen()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("pageSlide"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: PageSlideDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("socketDemo"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: SocketDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("deepLinkDemo"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: DeepLinkScreen()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("cognito"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: CognitoScreen()));
                   },
                 ),
               ],
