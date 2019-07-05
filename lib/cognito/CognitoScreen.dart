@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:amazon_cognito_identity_dart/cognito.dart';
 
 const _awsUserPoolId = 'ap-southeast-1_GwZ4hQOVY';
-const _awsClientId = '4g9ejtj8oh87vq4mdqdhn0ns2j';
+const _awsClientId = '3uhjka1l7iopcc30amfgrh1ja6';
 
 const _identityPoolId = 'ap-southeast-1:25005517-9ed3-44e5-b9a3-a143b0f4d457';
 
@@ -45,6 +45,10 @@ class CognitoState extends State<CognitoScreen> {
               child: Text('signup'),
               onPressed: signUp,
             ),
+            FlatButton(
+              child: Text('signin'),
+              onPressed: signIn,
+            ),
           ],
         ),
       ),
@@ -56,5 +60,30 @@ class CognitoState extends State<CognitoScreen> {
     data = await userPool.signUp(emailController.text, pwController.text);
 
     return data.userConfirmed.toString();
+  }
+
+  Future signIn() async {
+    CognitoUser cognitoUser = CognitoUser(emailController.text, userPool);
+
+    AuthenticationDetails authenticationDetails = AuthenticationDetails(
+        username: emailController.text, password: pwController.text);
+
+    CognitoUserSession cognitoUserSession;
+
+    try {
+      cognitoUserSession =
+          await cognitoUser.authenticateUser(authenticationDetails);
+    } catch (e) {
+      if (e is CognitoClientException) {
+        switch (e.code) {
+        }
+      }
+      print(e);
+      return;
+    }
+
+    String idToken = cognitoUserSession.idToken.getJwtToken();
+    String accessToken = cognitoUserSession.accessToken.getJwtToken();
+    String refreshToken = cognitoUserSession.refreshToken.getToken();
   }
 }

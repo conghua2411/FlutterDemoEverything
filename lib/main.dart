@@ -24,9 +24,14 @@ import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/services.dart';
 
+import 'animation/AnimationScreen.dart';
 import 'cognito/CognitoScreen.dart';
 import 'deepLink/DeepLinkScreen.dart';
 import 'package:uni_links/uni_links.dart';
+
+import 'demoAHung/DemoAHung.dart';
+import 'demoAHung/ListExpandDemo.dart';
+import 'rxDartDemo/RxDartDemo.dart';
 
 List<CameraDescription> cameras;
 
@@ -283,6 +288,34 @@ class SecondRoute extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                         context, SlideRightRoute(widget: CognitoScreen()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("animation"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: AnimationScreen()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("rxDart"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: RxDartDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("AHung"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: DemoAHung()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("ListExpandDemo"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: ListExpandDemo()));
                   },
                 ),
               ],

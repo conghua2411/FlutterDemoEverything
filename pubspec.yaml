@@ -38,6 +38,7 @@ dependencies:
   flame: ^0.10.2
   uni_links: ^0.2.0
   amazon_cognito_identity_dart: ^0.0.19
+  rxdart: ^0.21.0
 
 dev_dependencies:
   flutter_test:
@@ -45,7 +46,7 @@ dev_dependencies:
 
 
 # For information on the generic Dart part of this file, see the
-# following page: https://www.dartlang.org/tools/pub/pubspec
+# followingge: https://www.dartlang.org/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
