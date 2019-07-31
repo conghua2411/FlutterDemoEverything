@@ -34,6 +34,12 @@ class FancyBackgroundState extends State<FancyBackgroundScreen>
   }
 
   @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

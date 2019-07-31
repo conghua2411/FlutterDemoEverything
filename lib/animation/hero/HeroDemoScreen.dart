@@ -15,7 +15,7 @@ class HeroDemoState extends State<HeroDemoScreen> {
             tag: 'heroTest-2',
             child: Material(
               child: Text(
-                'hero',
+                'fancyBackground',
                 style: TextStyle(fontSize: 20),
               ),
               color: Colors.transparent,

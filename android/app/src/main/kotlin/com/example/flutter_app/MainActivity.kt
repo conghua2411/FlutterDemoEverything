@@ -16,15 +16,26 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
 import java.io.File
 import android.content.ContentValues.TAG
+import android.os.Environment
 import com.dexterous.flutterlocalnotifications.FlutterLocalNotificationsPlugin.showNotification
 import io.flutter.plugin.common.EventChannel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import java.util.logging.StreamHandler
+import com.amazonaws.mobile.client.UserStateDetails
+import com.amazonaws.mobile.client.AWSMobileClient
+import com.amazonaws.mobile.client.Callback
+import com.amazonaws.mobile.client.UserState
+import com.amazonaws.mobile.client.results.SignInResult
+import com.amazonaws.mobileconnectors.s3.transferutility.*
+import com.amazonaws.services.s3.AmazonS3Client
+import java.lang.Exception
 
 
 class MainActivity : FlutterActivity() {
+
+    val TAG = "MainActivity"
 
     lateinit var ocrApi: TessBaseAPI
 
@@ -39,6 +50,25 @@ class MainActivity : FlutterActivity() {
 
         super.onCreate(savedInstanceState)
         GeneratedPluginRegistrant.registerWith(this)
+
+        // aws s3
+        applicationContext.startService(Intent(applicationContext, TransferService::class.java))
+
+        AWSMobileClient.getInstance().initialize(applicationContext, object : Callback<UserStateDetails> {
+            override fun onResult(result: UserStateDetails?) {
+                Log.i(TAG, "AWSMobileClient initialized. User State is " + result?.userState)
+                if (result?.userState == UserState.SIGNED_IN) {
+                    Log.d(TAG, "USER SIGNED IN")
+                } else {
+                    Log.d(TAG, "userState: ${result?.userState}")
+//                    signin()
+                }
+            }
+
+            override fun onError(e: Exception?) {
+                Log.e(TAG, "Initialization error.", e)
+            }
+        })
 
         ocrApi = TessBaseAPI()
 
@@ -58,6 +88,12 @@ class MainActivity : FlutterActivity() {
                 "showNotification" -> {
 //                    result.success(showNotification())
                     showNotification()
+                }
+                "uploadImage" -> {
+                    uploadImage()
+                }
+                "signOutCognito" -> {
+                    signOutCognito()
                 }
                 else -> {
                     result.notImplemented()
@@ -90,6 +126,94 @@ class MainActivity : FlutterActivity() {
 //                    }
 //                }
 //        )
+    }
+
+    private fun signOutCognito() {
+        AWSMobileClient.getInstance().signOut()
+    }
+
+    private fun uploadImage() {
+//        uploadWithTransferUtility()
+
+        if (AWSMobileClient.getInstance().isSignedIn) {
+            uploadWithTransferUtility()
+        } else {
+            signin()
+        }
+
+//        AWSMobileClient.getInstance().initialize(applicationContext, object : Callback<UserStateDetails> {
+//            override fun onResult(result: UserStateDetails?) {
+//                Log.i(TAG, "AWSMobileClient initialized. User State is " + result?.userState)
+//                if (result?.userState == UserState.SIGNED_IN) {
+//                    Log.d(TAG, "USER SIGNED IN")
+//                    uploadWithTransferUtility()
+//                } else {
+//                    Log.d(TAG, "userState: ${result?.userState}")
+//                    signin()
+//                }
+//            }
+//
+//            override fun onError(e: Exception?) {
+//                Log.e(TAG, "Initialization error.", e)
+//            }
+//        })
+    }
+
+    private fun signin() {
+        AWSMobileClient.getInstance().signIn("conghua2411@yopmail.com", "111111", null, object : Callback<SignInResult> {
+            override fun onResult(result: SignInResult?) {
+                Log.d(TAG, "signin: ${result?.signInState}")
+                uploadWithTransferUtility()
+            }
+
+            override fun onError(e: Exception?) {
+                Log.d(TAG, "Error: ${e.toString()}")
+            }
+        })
+    }
+
+    private fun uploadWithTransferUtility() {
+
+//        Log.d(TAG,"uploadWithTransferUtility user State : ${AWSMobileClient.getInstance().currentUserState()}")
+
+        System.out.print("$TAG uploadWithTransferUtility user State : ${AWSMobileClient.getInstance().currentUserState()}")
+
+        val transferUtility = TransferUtility.builder()
+                .defaultBucket("crypto-badge-static-m1")
+                .context(applicationContext)
+                .awsConfiguration(AWSMobileClient.getInstance().configuration)
+                .s3Client(AmazonS3Client(AWSMobileClient.getInstance()))
+                .build()
+
+        TransferNetworkLossHandler.getInstance(applicationContext)
+
+        val uploadObserver =
+                transferUtility.upload(
+                        "protected/${AWSMobileClient.getInstance().identityId}/abc123123.jpg",
+                        File("${Environment.getExternalStorageDirectory().path}/Pictures/1536807835610.jpg")
+//                        File("${Environment.getExternalStorageDirectory().path}/Pictures/Screenshots/abc.png")
+                )
+        uploadObserver.setTransferListener(object : TransferListener {
+            override fun onProgressChanged(id: Int, bytesCurrent: Long, bytesTotal: Long) {
+                val percentDonef = bytesCurrent.toFloat() / bytesTotal.toFloat() * 100
+                val percentDone = percentDonef.toInt()
+
+                Log.d("YourActivity", "ID:" + id + " bytesCurrent: " + bytesCurrent
+                        + " bytesTotal: " + bytesTotal + " " + percentDone + "%")
+            }
+
+            override fun onStateChanged(id: Int, state: TransferState?) {
+                if (TransferState.COMPLETED == state) {
+                    Log.d(TAG, "Upload state success")
+                } else {
+                    Log.d(TAG, "Upload state change: ${state?.name}")
+                }
+            }
+
+            override fun onError(id: Int, ex: Exception?) {
+                Log.e(TAG, "Error: ${ex.toString()}")
+            }
+        })
     }
 
     override fun onNewIntent(intent: Intent) {

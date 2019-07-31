@@ -5,17 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/TestOcr.dart';
 import 'package:flutter_app/appDemo/auth/Auth.dart';
 import 'package:flutter_app/chat/chat.dart';
+import 'package:flutter_app/connection/connection_screen.dart';
 import 'package:flutter_app/demoBloc/widget/BlocScreen.dart';
 import 'package:flutter_app/gridView/GridScreen.dart';
 import 'package:flutter_app/listDemo/listView.dart';
 import 'package:flutter_app/notification/NotiScreen.dart';
 import 'package:flutter_app/pageSlide/PageSlideDemo.dart';
+import 'package:flutter_app/palette_generator_demo/palette_generator_demo.dart';
 import 'package:flutter_app/shoppingCart/screen/cartList.dart';
 import 'package:flutter_app/snake/SnakeScreen.dart';
 import 'package:flutter_app/socket/SocketDemo.dart';
 import 'package:flutter_app/ticTacToe/TicTacToe.dart';
 import 'package:flutter_app/transition/ScaleTransition.dart';
 import 'package:flutter_app/transition/SlideTransition.dart';
+import 'package:flutter_app/uploadS3/upload_s3_screen.dart';
 import 'package:flutter_app/viewPager/ViewPager.dart';
 import 'package:flutter_app/widgetDemo/memrise.dart';
 import 'package:image_picker/image_picker.dart';
@@ -31,6 +34,7 @@ import 'package:uni_links/uni_links.dart';
 
 import 'demoAHung/DemoAHung.dart';
 import 'demoAHung/ListExpandDemo.dart';
+import 'flutter_sound/flutter_sound_screen.dart';
 import 'rxDartDemo/RxDartDemo.dart';
 
 List<CameraDescription> cameras;
@@ -45,6 +49,11 @@ Future<String> initUniLink() async {
 }
 
 Future<void> main() async {
+
+  //Connection
+  ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
+  connectionStatus.initialize();
+
   cameras = await availableCameras();
 
   runApp(MaterialApp(
@@ -57,6 +66,8 @@ Future<void> main() async {
           return MaterialPageRoute(builder: (_) => MyApp());
         case '/SecondRoute':
           return ScaleRoute(widget: SecondRoute());
+        default:
+          return MaterialPageRoute(builder: (_) => MyApp());
       }
     },
   ));
@@ -100,6 +111,8 @@ class MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
+    ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
+    connectionStatus.dispose();
     _linksStreamSubscription.cancel();
   }
 
@@ -316,6 +329,34 @@ class SecondRoute extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                         context, SlideRightRoute(widget: ListExpandDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("FlutterSound"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: FlutterSoundScreen()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("FlutterConnection"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: ConnectionScreen()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("UploadS3"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: UploadS3Screen()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("PaletteGenerator"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: PaletteGeneratorDemo()));
                   },
                 ),
               ],
