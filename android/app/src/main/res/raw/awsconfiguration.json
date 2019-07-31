@@ -1,0 +1,27 @@
+{
+  "IdentityManager": {
+    "Default": {}
+  },
+  "CredentialsProvider": {
+    "CognitoIdentity": {
+      "Default": {
+        "PoolId": "ap-southeast-1:25005517-9ed3-44e5-b9a3-a143b0f4d457",
+        "Region": "ap-southeast-1"
+      }
+    }
+  },
+  "CognitoUserPool": {
+    "Default": {
+      "PoolId": "ap-southeast-1_GwZ4hQOVY",
+      "AppClientId": "4g9ejtj8oh87vq4mdqdhn0ns2j",
+      "AppClientSecret": "1uf6e4tm4h4kefrii3tsq8928jde0k1q03fqkevhq2u61kcbvbc6",
+      "Region": "ap-southeast-1"
+    }
+  },
+  "S3TransferUtility": {
+    "Default": {
+      "Bucket": "crypto-badge-static-m1",
+      "Region": "ap-southeast-1"
+    }
+  }
+}
