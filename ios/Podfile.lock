@@ -1,0 +1,124 @@
+PODS:
+  - audioplayers (0.0.1):
+    - Flutter
+  - AWSCore (2.10.2)
+  - AWSS3 (2.10.2):
+    - AWSCore (= 2.10.2)
+  - camera (0.0.1):
+    - Flutter
+  - connectivity (0.0.1):
+    - Flutter
+    - Reachability
+  - Flutter (1.0.0)
+  - flutter_amazon_s3 (0.0.1):
+    - AWSCore
+    - AWSS3
+    - Flutter
+  - flutter_local_notifications (0.0.1):
+    - Flutter
+  - flutter_sound (0.0.1):
+    - Flutter
+  - google_maps_flutter (0.0.1):
+    - Flutter
+    - GoogleMaps
+  - GoogleMaps (2.7.0):
+    - GoogleMaps/Maps (= 2.7.0)
+  - GoogleMaps/Base (2.7.0)
+  - GoogleMaps/Maps (2.7.0):
+    - GoogleMaps/Base
+  - image_picker (0.0.1):
+    - Flutter
+  - in_app_purchase (0.0.1):
+    - Flutter
+  - location (0.0.1):
+    - Flutter
+  - path_provider (0.0.1):
+    - Flutter
+  - "permission_handler (3.2.1+1)":
+    - Flutter
+  - Reachability (3.2)
+  - uni_links (0.0.1):
+    - Flutter
+  - video_player (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - audioplayers (from `.symlinks/plugins/audioplayers/ios`)
+  - camera (from `.symlinks/plugins/camera/ios`)
+  - connectivity (from `.symlinks/plugins/connectivity/ios`)
+  - Flutter (from `.symlinks/flutter/ios`)
+  - flutter_amazon_s3 (from `.symlinks/plugins/flutter_amazon_s3/ios`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
+  - flutter_sound (from `.symlinks/plugins/flutter_sound/ios`)
+  - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
+  - image_picker (from `.symlinks/plugins/image_picker/ios`)
+  - in_app_purchase (from `.symlinks/plugins/in_app_purchase/ios`)
+  - location (from `.symlinks/plugins/location/ios`)
+  - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - uni_links (from `.symlinks/plugins/uni_links/ios`)
+  - video_player (from `.symlinks/plugins/video_player/ios`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AWSCore
+    - AWSS3
+    - GoogleMaps
+    - Reachability
+
+EXTERNAL SOURCES:
+  audioplayers:
+    :path: ".symlinks/plugins/audioplayers/ios"
+  camera:
+    :path: ".symlinks/plugins/camera/ios"
+  connectivity:
+    :path: ".symlinks/plugins/connectivity/ios"
+  Flutter:
+    :path: ".symlinks/flutter/ios"
+  flutter_amazon_s3:
+    :path: ".symlinks/plugins/flutter_amazon_s3/ios"
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
+  flutter_sound:
+    :path: ".symlinks/plugins/flutter_sound/ios"
+  google_maps_flutter:
+    :path: ".symlinks/plugins/google_maps_flutter/ios"
+  image_picker:
+    :path: ".symlinks/plugins/image_picker/ios"
+  in_app_purchase:
+    :path: ".symlinks/plugins/in_app_purchase/ios"
+  location:
+    :path: ".symlinks/plugins/location/ios"
+  path_provider:
+    :path: ".symlinks/plugins/path_provider/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
+  uni_links:
+    :path: ".symlinks/plugins/uni_links/ios"
+  video_player:
+    :path: ".symlinks/plugins/video_player/ios"
+
+SPEC CHECKSUMS:
+  audioplayers: 84f968cea3f2deab00ec4f8ff53358b3c0b3992c
+  AWSCore: 2e91f89187d1238be35ce8c57aac98c42def640f
+  AWSS3: f0f81ee725de69f631051cead12791ff5dfbba14
+  camera: d56ad165545ae5a0ffb892376033760a969c68c8
+  connectivity: c72716e202a1225ec4810740d5cb56b8ae3bf4cc
+  Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
+  flutter_amazon_s3: a6d75912a54c3aacb9373bad55ddc9ecacc22a52
+  flutter_local_notifications: 9e4738ce2471c5af910d961a6b7eadcf57c50186
+  flutter_sound: 0e8163ceac1e00eb6d894e2ae4641ba726a2c479
+  google_maps_flutter: 78a52114c898b42ea647919679a4c58b70abe876
+  GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
+  image_picker: 16e5fec1fbc87fd3b297c53e4048521eaf17cd06
+  in_app_purchase: 5e80de181441b1c149372237f5e65255455e175f
+  location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
+  path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
+  permission_handler: 6a1b2f94f866da8bd19fa67f3c8f4b9f38580efb
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  uni_links: d97da20c7701486ba192624d99bffaaffcfc298a
+  video_player: 3964090a33353060ed7f58aa6427c7b4b208ec21
+
+PODFILE CHECKSUM: b6a0a141693093b304368d08511b46cf3d1d0ac5
+
+COCOAPODS: 1.7.5
