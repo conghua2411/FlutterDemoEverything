@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class MusicAnimationDemo extends StatefulWidget {
   @override
@@ -27,12 +28,17 @@ class MusicCustomAnimation extends StatefulWidget {
 }
 
 class MusicCustomAnimationState extends State<MusicCustomAnimation> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(
-        child: Row(
+      child: CircularPercentIndicator(
+        radius: 130.0,
+        lineWidth: 5.0,
+        percent: 1.0,
+        animation: true,
+        animationDuration: 30000,
+        progressColor: Colors.green,
+        center: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
@@ -55,6 +61,31 @@ class MusicCustomAnimationState extends State<MusicCustomAnimation> {
           ],
         ),
       ),
+
+//      child: Center(
+//        child: Row(
+//          mainAxisAlignment: MainAxisAlignment.center,
+//          mainAxisSize: MainAxisSize.max,
+//          children: <Widget>[
+//            AnimationMusicColumn(),
+//            SizedBox(
+//              width: 10,
+//            ),
+//            AnimationMusicColumn(),
+//            SizedBox(
+//              width: 10,
+//            ),
+//            AnimationMusicColumn(),
+//            SizedBox(
+//              width: 10,
+//            ),
+//            AnimationMusicColumn(),
+//            SizedBox(
+//              width: 10,
+//            ),
+//          ],
+//        ),
+//      ),
     );
   }
 }

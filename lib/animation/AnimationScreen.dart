@@ -9,6 +9,7 @@ import 'hero/HeroCustomRoute.dart';
 import 'hero/HeroDemoScreen.dart';
 import 'music_animation/music_animation_demo.dart';
 import 'number_increase/number_increase_demo.dart';
+import 'play_btn_animation/play_btn_animation.dart';
 
 class AnimationScreen extends StatefulWidget {
   @override
@@ -24,7 +25,8 @@ class AnimationState extends State<AnimationScreen> {
     'bottomBox',
     'shake',
     'numberIncrease',
-    'musicAnimation'
+    'musicAnimation',
+    'PlayBtnAnimation'
   ];
 
   @override
@@ -89,6 +91,10 @@ class AnimationState extends State<AnimationScreen> {
       case 7:
         Navigator.push(
             context, MaterialPageRoute(builder: (_) => MusicAnimationDemo()));
+        break;
+      case 8:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => PlayBtnAnimationDemo()));
         break;
       default:
         break;

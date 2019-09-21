@@ -12,6 +12,7 @@ import 'package:flutter_app/listDemo/listView.dart';
 import 'package:flutter_app/notification/NotiScreen.dart';
 import 'package:flutter_app/pageSlide/PageSlideDemo.dart';
 import 'package:flutter_app/palette_generator_demo/palette_generator_demo.dart';
+import 'package:flutter_app/permission/permision_demo.dart';
 import 'package:flutter_app/shoppingCart/screen/cartList.dart';
 import 'package:flutter_app/snake/SnakeScreen.dart';
 import 'package:flutter_app/socket/SocketDemo.dart';
@@ -28,14 +29,20 @@ import 'package:video_player/video_player.dart';
 import 'package:flutter/services.dart';
 
 import 'animation/AnimationScreen.dart';
+import 'bottom_loadmore/bottom_loadmore_demo.dart';
 import 'cognito/CognitoScreen.dart';
+import 'column_demo/column_demo.dart';
+import 'comment_ui_demo/comment_ui_demo.dart';
+import 'custom_profile/custom_profile_screen.dart';
 import 'deepLink/DeepLinkScreen.dart';
 import 'package:uni_links/uni_links.dart';
 
 import 'demoAHung/DemoAHung.dart';
 import 'demoAHung/ListExpandDemo.dart';
 import 'flutter_sound/flutter_sound_screen.dart';
+import 'language_demo/language_demo.dart';
 import 'rxDartDemo/RxDartDemo.dart';
+import 'web_socket_channel/demo_state.dart';
 
 List<CameraDescription> cameras;
 
@@ -49,9 +56,9 @@ Future<String> initUniLink() async {
 }
 
 Future<void> main() async {
-
   //Connection
-  ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
+  ConnectionStatusSingleton connectionStatus =
+      ConnectionStatusSingleton.getInstance();
   connectionStatus.initialize();
 
   cameras = await availableCameras();
@@ -111,7 +118,8 @@ class MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
-    ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
+    ConnectionStatusSingleton connectionStatus =
+        ConnectionStatusSingleton.getInstance();
     connectionStatus.dispose();
     _linksStreamSubscription.cancel();
   }
@@ -355,8 +363,57 @@ class SecondRoute extends StatelessWidget {
                 RaisedButton(
                   child: Text("PaletteGenerator"),
                   onPressed: () {
+                    Navigator.push(context,
+                        SlideRightRoute(widget: PaletteGeneratorDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("TestSetState"),
+                  onPressed: () {
                     Navigator.push(
-                        context, SlideRightRoute(widget: PaletteGeneratorDemo()));
+                        context, SlideRightRoute(widget: DemoStateScreen()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("PermissionDemo"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: PermissionDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("ColumnDemo"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: ColumnDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("LanguageDemo"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: LanguageDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("CustomProfileScreen"),
+                  onPressed: () {
+                    Navigator.push(context,
+                        SlideRightRoute(widget: CustomProfileScreen()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("BottomLoadMoreDemo"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: BottomLoadMoreDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("CommentUIDemo"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: CommentUIDemo()));
                   },
                 ),
               ],
