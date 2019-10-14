@@ -28,8 +28,6 @@ PODS:
     - GoogleMaps/Base
   - image_picker (0.0.1):
     - Flutter
-  - in_app_purchase (0.0.1):
-    - Flutter
   - location (0.0.1):
     - Flutter
   - path_provider (0.0.1):
@@ -52,7 +50,6 @@ DEPENDENCIES:
   - flutter_sound (from `.symlinks/plugins/flutter_sound/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
-  - in_app_purchase (from `.symlinks/plugins/in_app_purchase/ios`)
   - location (from `.symlinks/plugins/location/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
@@ -85,8 +82,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_maps_flutter/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
-  in_app_purchase:
-    :path: ".symlinks/plugins/in_app_purchase/ios"
   location:
     :path: ".symlinks/plugins/location/ios"
   path_provider:
@@ -104,14 +99,13 @@ SPEC CHECKSUMS:
   AWSS3: f0f81ee725de69f631051cead12791ff5dfbba14
   camera: d56ad165545ae5a0ffb892376033760a969c68c8
   connectivity: c72716e202a1225ec4810740d5cb56b8ae3bf4cc
-  Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_amazon_s3: a6d75912a54c3aacb9373bad55ddc9ecacc22a52
   flutter_local_notifications: 9e4738ce2471c5af910d961a6b7eadcf57c50186
   flutter_sound: 0e8163ceac1e00eb6d894e2ae4641ba726a2c479
   google_maps_flutter: 78a52114c898b42ea647919679a4c58b70abe876
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
   image_picker: 16e5fec1fbc87fd3b297c53e4048521eaf17cd06
-  in_app_purchase: 5e80de181441b1c149372237f5e65255455e175f
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
   permission_handler: 6a1b2f94f866da8bd19fa67f3c8f4b9f38580efb

@@ -14,9 +14,11 @@ import 'package:flutter_app/pageSlide/PageSlideDemo.dart';
 import 'package:flutter_app/palette_generator_demo/palette_generator_demo.dart';
 import 'package:flutter_app/permission/permision_demo.dart';
 import 'package:flutter_app/shoppingCart/screen/cartList.dart';
+import 'package:flutter_app/sliding_setting_demo/sliding_setting_demo.dart';
 import 'package:flutter_app/snake/SnakeScreen.dart';
 import 'package:flutter_app/socket/SocketDemo.dart';
 import 'package:flutter_app/ticTacToe/TicTacToe.dart';
+import 'package:flutter_app/tooltip/super_tooltip_demo.dart';
 import 'package:flutter_app/transition/ScaleTransition.dart';
 import 'package:flutter_app/transition/SlideTransition.dart';
 import 'package:flutter_app/uploadS3/upload_s3_screen.dart';
@@ -29,19 +31,24 @@ import 'package:video_player/video_player.dart';
 import 'package:flutter/services.dart';
 
 import 'animation/AnimationScreen.dart';
+import 'bottom_edit_view/bottom_edit_view.dart';
 import 'bottom_loadmore/bottom_loadmore_demo.dart';
 import 'cognito/CognitoScreen.dart';
 import 'column_demo/column_demo.dart';
 import 'comment_ui_demo/comment_ui_demo.dart';
+import 'crypto_home_demo/crypto_home_demo.dart';
+import 'crypto_tooltip/crypto_tooltip.dart';
 import 'custom_profile/custom_profile_screen.dart';
 import 'deepLink/DeepLinkScreen.dart';
 import 'package:uni_links/uni_links.dart';
 
 import 'demoAHung/DemoAHung.dart';
 import 'demoAHung/ListExpandDemo.dart';
+import 'draggable_demo/draggable_demo.dart';
 import 'flutter_sound/flutter_sound_screen.dart';
 import 'language_demo/language_demo.dart';
 import 'rxDartDemo/RxDartDemo.dart';
+import 'view_page_with_bottom_bar/view_page_with_bottom_bar.dart';
 import 'web_socket_channel/demo_state.dart';
 
 List<CameraDescription> cameras;
@@ -414,6 +421,55 @@ class SecondRoute extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                         context, SlideRightRoute(widget: CommentUIDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("CryptoHome"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: CryptoHomeDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text("ViewPageWithBottomBar"),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: ViewPageBottomBar()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('BottomEditDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: BottomEditDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('TooltipDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: SuperTooltipDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('CryptoTooltip'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: CryptoTooltipDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('DraggableDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: DraggableDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('SlidingSetting'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: SlidingSettingDemo()));
                   },
                 ),
               ],

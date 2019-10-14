@@ -58,25 +58,38 @@ class ViewPagerState extends State<ViewPagerDemo>
           ],
         ),
       ),
-      bottomNavigationBar: TabBar(
-        tabs: [
-          Tab(
-            icon: Icon(Icons.home),
+      bottomNavigationBar: Container(
+        height: 54,
+        child: TabBar(
+          tabs: [
+            Tab(
+              icon: Icon(Icons.home, size: 20,),
+              text: 'aloo',
+            ),
+            Tab(
+              icon: Icon(Icons.android, size: 20,),
+              text: '12301230'
+            ),
+            Tab(
+              icon: Icon(Icons.star, size: 20,),
+              text: 'asdasdad',
+            ),
+            Tab(
+              icon: Icon(Icons.event, size: 20,),
+              text: 'kanflasf',
+            ),
+          ],
+          controller: _tabController,
+          labelColor: Colors.blue,
+          unselectedLabelColor: Colors.black,
+          labelStyle: TextStyle(
+            fontSize: 12
           ),
-          Tab(
-            icon: Icon(Icons.android),
+          unselectedLabelStyle: TextStyle(
+            fontSize: 0
           ),
-          Tab(
-            icon: Icon(Icons.star),
-          ),
-          Tab(
-            icon: Icon(Icons.event),
-          ),
-        ],
-        controller: _tabController,
-        labelColor: Colors.yellow,
-        unselectedLabelColor: Colors.black,
-        indicatorColor: Colors.yellow,
+          indicatorSize: TabBarIndicatorSize.tab,
+        ),
       ),
     );
   }
