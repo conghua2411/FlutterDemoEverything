@@ -33,11 +33,13 @@ import 'package:flutter/services.dart';
 import 'animation/AnimationScreen.dart';
 import 'bottom_edit_view/bottom_edit_view.dart';
 import 'bottom_loadmore/bottom_loadmore_demo.dart';
+import 'bottom_sheet_keyboard/bottom_sheet_keyboard.dart';
 import 'cognito/CognitoScreen.dart';
 import 'column_demo/column_demo.dart';
 import 'comment_ui_demo/comment_ui_demo.dart';
 import 'crypto_home_demo/crypto_home_demo.dart';
 import 'crypto_tooltip/crypto_tooltip.dart';
+import 'custom_list_quochuynh/custom_list_quochuynh.dart';
 import 'custom_profile/custom_profile_screen.dart';
 import 'deepLink/DeepLinkScreen.dart';
 import 'package:uni_links/uni_links.dart';
@@ -470,6 +472,20 @@ class SecondRoute extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                         context, SlideRightRoute(widget: SlidingSettingDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('BottomSheetKeyboard'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: BottomSheetKeyboard()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('CustomListQuocHuynh'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: CustomListQuocHuynh()));
                   },
                 ),
               ],

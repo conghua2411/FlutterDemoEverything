@@ -5,6 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'color_picker/color_picker.dart';
+import 'color_picker/custom_slide_color_bar.dart';
 
 enum ColorSettingState { CB_PALETTE, CUSTOM }
 
@@ -15,7 +16,7 @@ class SlidingSettingDemo extends StatefulWidget {
 
 class SlidingSettingState extends State<SlidingSettingDemo> {
   StreamController<bool> isShowSlidingSettingStream = StreamController();
-  bool isShowSlidingSetting = true;
+  bool isShowSlidingSetting = false;
 
   BehaviorSubject<ColorSettingState> bsSettingState = BehaviorSubject();
 
@@ -24,6 +25,12 @@ class SlidingSettingState extends State<SlidingSettingDemo> {
   BehaviorSubject<int> bsTextColorIndexSelected = BehaviorSubject();
 
   BehaviorSubject<Color> bsBackgroundColor = BehaviorSubject();
+
+  BehaviorSubject<Color> bsRealBackgroundColor = BehaviorSubject();
+
+  TextEditingController _colorHexText = TextEditingController();
+
+  BehaviorSubject<Color> bsRealTextColor = BehaviorSubject();
 
   TextStyle selectedTextStyle = TextStyle(
     color: Colors.black,
@@ -37,12 +44,25 @@ class SlidingSettingState extends State<SlidingSettingDemo> {
   );
 
   @override
+  void initState() {
+    super.initState();
+
+    bsRealBackgroundColor.listen((color) {
+      _colorHexText.text = color.value.toRadixString(16);
+    });
+  }
+
+  @override
   void dispose() {
     isShowSlidingSettingStream.close();
     bsSettingState.close();
     bsColorIndexSelected.close();
     bsTextColorIndexSelected.close();
     bsBackgroundColor.close();
+    bsRealBackgroundColor.close();
+    bsRealTextColor.close();
+
+    _colorHexText.dispose();
     super.dispose();
   }
 
@@ -50,13 +70,36 @@ class SlidingSettingState extends State<SlidingSettingDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SlidingSettingDemo'),
+        leading: StreamBuilder<Color>(
+            initialData: Colors.white,
+            stream: bsRealTextColor,
+            builder: (context, snapshot) {
+              return IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: snapshot.data,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  });
+            }),
+        title: StreamBuilder<Color>(
+            initialData: Colors.white,
+            stream: bsRealTextColor,
+            builder: (context, snapshot) {
+              return Text(
+                'SlidingSettingDemo',
+                style: TextStyle(
+                  color: snapshot.data,
+                ),
+              );
+            }),
       ),
       body: Stack(
         children: <Widget>[
           StreamBuilder<Color>(
               initialData: Colors.amber,
-              stream: bsBackgroundColor,
+              stream: bsRealBackgroundColor,
               builder: (context, snapshot) {
                 return Container(
                   color: snapshot.data,
@@ -268,6 +311,8 @@ class SlidingSettingState extends State<SlidingSettingDemo> {
                 child: GestureDetector(
                   onTap: () {
                     bsColorIndexSelected.add(index);
+                    bsRealBackgroundColor
+                        .add(Colors.amber[(index % 9 + 1) * 100]);
                   },
                   child: Container(
                     width: 50,
@@ -295,26 +340,92 @@ class SlidingSettingState extends State<SlidingSettingDemo> {
   }
 
   _buildCustom() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        CircleColorPicker(
-          initialColor: Colors.blue,
-          thumbRadius: 10,
-          colorListener: (int value) {
-            print('ColorPicker: $value');
-            bsBackgroundColor.add(Color(value));
-          },
-        ),
-        BarColorPicker(
-          pickMode: PickMode.Grey,
-          colorListener: (value) {
-            bsBackgroundColor.add(Color(value));
-          },
-          horizontal: false,
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 34,
+        right: 34,
+        top: 16,
+        bottom: 16,
+      ),
+      child: Column(
+        children: <Widget>[
+          Container(
+            color: Color.fromRGBO(0, 0, 0, 0.2),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                CircleColorPicker(
+                  radius: 80,
+                  initialColor: Color(0xffffff00),
+                  thumbColor: Color(0xffffff00),
+                  thumbRadius: 10,
+                  colorListener: (int value) {
+                    print('ColorPicker: $value');
+                    bsBackgroundColor.add(Color(value));
+                  },
+                ),
+                StreamBuilder<Color>(
+                  initialData: Colors.black,
+                  stream: bsBackgroundColor,
+                  builder: (context, snapshot) {
+                    return BarColorPicker(
+                      width: 160,
+                      initialColor: snapshot.data,
+                      pickMode: PickMode.Specific_Color,
+                      colorListener: (value) {
+                        print('BarColorPicker 123: $value');
+                        bsRealBackgroundColor.add(Color(value));
+                      },
+                      horizontal: false,
+                      bsSpecificColor: bsBackgroundColor,
+                      thumbColor: Colors.white,
+                    );
+                  },
+                ),
+//        _buildCustomSlider(),
+              ],
+            ),
+          ),
+          Container(
+            width: 110,
+            child: Row(
+              children: <Widget>[
+                Text(
+                  'Hex',
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: TextField(
+                    enabled: false,
+                    controller: _colorHexText,
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _buildCustomSlider() {
+    return StreamBuilder<Color>(
+      initialData: Colors.white,
+      stream: bsRealBackgroundColor,
+      builder: (context, snapshot) {
+        return CustomSlideColorBar(
+          colorMain: snapshot.data,
+        );
+      },
     );
   }
 
@@ -334,6 +445,8 @@ class SlidingSettingState extends State<SlidingSettingDemo> {
                   child: GestureDetector(
                     onTap: () {
                       bsTextColorIndexSelected.add(index);
+                      bsRealTextColor
+                          .add(index == 0 ? Colors.white : Colors.black);
                     },
                     child: Container(
                       width: 50,
@@ -393,6 +506,10 @@ class SlidingSettingState extends State<SlidingSettingDemo> {
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
+                ),
+                TextField(
+                  controller: _colorHexText,
+                  decoration: InputDecoration(hintText: 'asdadasd'),
                 ),
               ],
             ),

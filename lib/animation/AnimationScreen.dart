@@ -7,7 +7,9 @@ import 'fancyBackground/FancyBackgroundScreen.dart';
 import 'flip/flip_image_screen.dart';
 import 'hero/HeroCustomRoute.dart';
 import 'hero/HeroDemoScreen.dart';
+import 'image_hero/image_hero_demo.dart';
 import 'music_animation/music_animation_demo.dart';
+import 'no_signal/no_signal_demo.dart';
 import 'number_increase/number_increase_demo.dart';
 import 'play_btn_animation/play_btn_animation.dart';
 
@@ -26,7 +28,9 @@ class AnimationState extends State<AnimationScreen> {
     'shake',
     'numberIncrease',
     'musicAnimation',
-    'PlayBtnAnimation'
+    'PlayBtnAnimation',
+    'ImageHeroDemo',
+    'NoSignalDemo',
   ];
 
   @override
@@ -95,6 +99,14 @@ class AnimationState extends State<AnimationScreen> {
       case 8:
         Navigator.push(
             context, MaterialPageRoute(builder: (_) => PlayBtnAnimationDemo()));
+        break;
+      case 9:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => ImageHeroDemo()));
+        break;
+      case 10:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => NoSignalDemo()));
         break;
       default:
         break;
