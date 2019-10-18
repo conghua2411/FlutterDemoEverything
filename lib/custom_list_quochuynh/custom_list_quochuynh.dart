@@ -166,7 +166,7 @@ class HappinessChartWidgetState extends State<HappinessChartWidget> {
   String _getEmotion(double average) {
     for (int i = 0; i < widget.listEmotion.length; i++) {
       if (average <= widget.listEmotion[i][0]) {
-        return widget.listEmotion[0][1];
+        return widget.listEmotion[i][1];
       }
     }
     return widget.listEmotion[0][1];
