@@ -2,6 +2,7 @@ package com.example.flutter_app
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.getIntent
@@ -16,6 +17,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
 import java.io.File
 import android.content.ContentValues.TAG
+import android.net.Uri
 import android.os.Environment
 import com.dexterous.flutterlocalnotifications.FlutterLocalNotificationsPlugin.showNotification
 import io.flutter.plugin.common.EventChannel
@@ -30,6 +32,7 @@ import com.amazonaws.mobile.client.UserState
 import com.amazonaws.mobile.client.results.SignInResult
 import com.amazonaws.mobileconnectors.s3.transferutility.*
 import com.amazonaws.services.s3.AmazonS3Client
+import io.flutter.plugin.common.MethodCall
 import java.lang.Exception
 
 
@@ -43,6 +46,15 @@ class MainActivity : FlutterActivity() {
 
     val publishSubject = PublishSubject.create<String>()
 
+    // deep link native
+    private val deepLinkChannel = "poc.deeplink.flutter.dev/cnannel";
+
+    var startString: String? = null
+
+    private val EVENTS = "poc.deeplink.flutter.dev/events"
+
+    var linksReceiver: BroadcastReceiver? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val channel = "com.example.flutter_app/main"
@@ -50,6 +62,39 @@ class MainActivity : FlutterActivity() {
 
         super.onCreate(savedInstanceState)
         GeneratedPluginRegistrant.registerWith(this)
+
+        // deep link native
+        val intent: Intent = intent
+
+        val data: Uri? = intent.data
+
+        MethodChannel(flutterView, deepLinkChannel).setMethodCallHandler { call, result ->
+            if (call.method == "initialLink") {
+                if (startString != null) {
+                    result.success(startString)
+                } else {
+                    result.success("startString is null")
+                }
+            }
+        }
+
+        if (data != null) {
+            startString = data.toString()
+        }
+
+        EventChannel(flutterView, EVENTS).setStreamHandler(object: EventChannel.StreamHandler {
+            override fun onListen(args: Any?, events: EventChannel.EventSink?) {
+                Log.d("DeepLink", "setup onListen")
+                if (linksReceiver == null) {
+                    linksReceiver = createChangeReceiver(events)
+                }
+            }
+
+            override fun onCancel(args: Any?) {
+                Log.d("DeepLink", "setup onCancel")
+                linksReceiver = null
+            }
+        })
 
         // aws s3
         applicationContext.startService(Intent(applicationContext, TransferService::class.java))
@@ -218,7 +263,39 @@ class MainActivity : FlutterActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+
+        Log.d("onNewIntent", "onNewIntent begin")
+
+        if (intent.data != null) {
+            Log.d("onNewIntent", "${intent.data}")
+        } else {
+            Log.d("onNewIntent", "null")
+        }
+
         setIntent(intent)
+
+        if(intent.action == Intent.ACTION_VIEW && linksReceiver != null) {
+            linksReceiver?.onReceive(this.applicationContext, intent)
+        }
+    }
+
+    fun createChangeReceiver(events: EventChannel.EventSink?): BroadcastReceiver {
+        return object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+
+                Log.d("DeepLink", "createChangeReceiver: onReceive ${intent.data} -- ${intent.dataString}")
+
+                // NOTE: assuming intent.getAction() is Intent.ACTION_VIEW
+
+                val dataString = intent.dataString
+
+                if (dataString == null) {
+                    events?.error("UNAVAILABLE", "Link unavailable", null)
+                } else {
+                    events?.success(dataString)
+                }
+            }
+        }
     }
 
     override fun onResume() {
@@ -227,14 +304,19 @@ class MainActivity : FlutterActivity() {
 
         if (newIntent.data != null) {
 
-            val email = newIntent.data.getQueryParameter("email")
-            val confirmCode = newIntent.data.getQueryParameter("confirmationCode")
-            val name = newIntent.data.getQueryParameter("name")
-            val picture = newIntent.data.getQueryParameter("picture")
+//            val email = newIntent.data.getQueryParameter("email")
+//            val confirmCode = newIntent.data.getQueryParameter("confirmationCode")
+//            val name = newIntent.data.getQueryParameter("name")
+//            val picture = newIntent.data.getQueryParameter("picture")
 
-            Log.d("deepLink", "hello: $email")
+            Log.d("deepLink", "hello: ${newIntent.data}")
 
-            publishSubject.onNext(email)
+            // test deep link 2
+            if(newIntent.action == Intent.ACTION_VIEW && linksReceiver != null) {
+                linksReceiver?.onReceive(this.applicationContext, newIntent)
+            }
+
+//            publishSubject.onNext(email)
         }
     }
 

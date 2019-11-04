@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_amazon_s3/flutter_amazon_s3.dart';
 
 class SlideButtonScreen extends StatefulWidget {
   @override
@@ -182,13 +181,6 @@ class SlideButtonState extends State<SlideButtonScreen>
   }
 
   showAnimation() async {
-
-    String path = '/data/user/0/can.app.cryptobadge/cache/image_picker4874775931364902453.jpg';
-
-    String uploadedImageUrl = await FlutterAmazonS3.uploadImage(
-        path, 'crypto-badge-static-m1', 'ap-southeast-1:31a7fecb-a07e-4ce3-90da-6931779e72a4', 'ap-southeast-1');
-
-    print("_uploadImageToAWS uploadedImageUrl ::" + uploadedImageUrl);
 
     setState(() {
 //      btnSize = btnSize == 100 ? 200 : 100;

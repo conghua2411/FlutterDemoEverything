@@ -1,19 +1,14 @@
 PODS:
   - audioplayers (0.0.1):
     - Flutter
-  - AWSCore (2.10.2)
-  - AWSS3 (2.10.2):
-    - AWSCore (= 2.10.2)
   - camera (0.0.1):
     - Flutter
   - connectivity (0.0.1):
     - Flutter
     - Reachability
-  - Flutter (1.0.0)
-  - flutter_amazon_s3 (0.0.1):
-    - AWSCore
-    - AWSS3
+  - device_info (0.0.1):
     - Flutter
+  - Flutter (1.0.0)
   - flutter_local_notifications (0.0.1):
     - Flutter
   - flutter_sound (0.0.1):
@@ -39,13 +34,15 @@ PODS:
     - Flutter
   - video_player (0.0.1):
     - Flutter
+  - wifi (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - audioplayers (from `.symlinks/plugins/audioplayers/ios`)
   - camera (from `.symlinks/plugins/camera/ios`)
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
+  - device_info (from `.symlinks/plugins/device_info/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
-  - flutter_amazon_s3 (from `.symlinks/plugins/flutter_amazon_s3/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_sound (from `.symlinks/plugins/flutter_sound/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
@@ -55,11 +52,10 @@ DEPENDENCIES:
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - uni_links (from `.symlinks/plugins/uni_links/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
+  - wifi (from `.symlinks/plugins/wifi/ios`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - AWSCore
-    - AWSS3
     - GoogleMaps
     - Reachability
 
@@ -70,10 +66,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/camera/ios"
   connectivity:
     :path: ".symlinks/plugins/connectivity/ios"
+  device_info:
+    :path: ".symlinks/plugins/device_info/ios"
   Flutter:
     :path: ".symlinks/flutter/ios"
-  flutter_amazon_s3:
-    :path: ".symlinks/plugins/flutter_amazon_s3/ios"
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_sound:
@@ -92,15 +88,15 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/uni_links/ios"
   video_player:
     :path: ".symlinks/plugins/video_player/ios"
+  wifi:
+    :path: ".symlinks/plugins/wifi/ios"
 
 SPEC CHECKSUMS:
   audioplayers: 84f968cea3f2deab00ec4f8ff53358b3c0b3992c
-  AWSCore: 2e91f89187d1238be35ce8c57aac98c42def640f
-  AWSS3: f0f81ee725de69f631051cead12791ff5dfbba14
   camera: d56ad165545ae5a0ffb892376033760a969c68c8
   connectivity: c72716e202a1225ec4810740d5cb56b8ae3bf4cc
+  device_info: cbf09d2ec12aa7110e0b09fabe54b5bd6c8efe74
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  flutter_amazon_s3: a6d75912a54c3aacb9373bad55ddc9ecacc22a52
   flutter_local_notifications: 9e4738ce2471c5af910d961a6b7eadcf57c50186
   flutter_sound: 0e8163ceac1e00eb6d894e2ae4641ba726a2c479
   google_maps_flutter: 78a52114c898b42ea647919679a4c58b70abe876
@@ -112,6 +108,7 @@ SPEC CHECKSUMS:
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   uni_links: d97da20c7701486ba192624d99bffaaffcfc298a
   video_player: 3964090a33353060ed7f58aa6427c7b4b208ec21
+  wifi: d7d77c94109e36c4175d845f0a5964eadba71060
 
 PODFILE CHECKSUM: b6a0a141693093b304368d08511b46cf3d1d0ac5
 

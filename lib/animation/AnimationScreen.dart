@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/animation/shake/shake_demo_screen.dart';
 import 'package:flutter_app/animation/slideButton/SlideButtonScreen.dart';
 
+import 'animated_list/animated_list_demo.dart';
 import 'bottomBox/BottomBox.dart';
 import 'fancyBackground/FancyBackgroundScreen.dart';
 import 'flip/flip_image_screen.dart';
@@ -31,6 +32,7 @@ class AnimationState extends State<AnimationScreen> {
     'PlayBtnAnimation',
     'ImageHeroDemo',
     'NoSignalDemo',
+    'AnimatedListDemo',
   ];
 
   @override
@@ -39,26 +41,29 @@ class AnimationState extends State<AnimationScreen> {
       appBar: AppBar(
         title: Text('Animation screen'),
       ),
-      body: ListView.builder(
-          itemCount: listAnimation.length,
-          itemBuilder: (buildContext, index) {
-            return Container(
-              height: 50,
-              color: Colors.amber[(index % 10) * 100],
-              child: Center(
-                child: FlatButton(
-                    onPressed: () => gotoAnimation(context, index),
-                    child: Hero(
-                        tag: 'heroTest-$index',
-                        child: Material(
-                            child: Text(
-                              listAnimation[index],
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            color: Colors.transparent))),
-              ),
-            );
-          }),
+      body: Container(
+        color: Colors.amber,
+        child: ListView.builder(
+            itemCount: listAnimation.length,
+            itemBuilder: (buildContext, index) {
+              return Container(
+                height: 50,
+                color: Colors.amber[(index % 9 +1) * 100],
+                child: Center(
+                  child: FlatButton(
+                      onPressed: () => gotoAnimation(context, index),
+                      child: Hero(
+                          tag: 'heroTest-$index',
+                          child: Material(
+                              child: Text(
+                                listAnimation[index],
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              color: Colors.transparent))),
+                ),
+              );
+            }),
+      ),
     );
   }
 
@@ -102,11 +107,15 @@ class AnimationState extends State<AnimationScreen> {
         break;
       case 9:
         Navigator.push(
-            context, MaterialPageRoute(builder: (_) => ImageHeroDemo()));
+            context, HeroCustomRoute(widget: ImageHeroDemo()));
         break;
       case 10:
         Navigator.push(
             context, MaterialPageRoute(builder: (_) => NoSignalDemo()));
+        break;
+      case 11:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => AnimatedListDemo()));
         break;
       default:
         break;

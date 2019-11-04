@@ -26,7 +26,21 @@ class ImageHeroState extends State<ImageHeroDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ImageHeroDemo'),
+        iconTheme: IconTheme.of(context).copyWith(
+          color: Colors.black,
+        ),
+        title: Hero(
+            tag: 'heroTest-9',
+            child: Material(
+              color: Colors.transparent,
+              child: Text(
+                'ImageHeroDemo',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                ),
+              ),
+            )),
       ),
       body: ListView.builder(
         itemBuilder: (context, index) {
