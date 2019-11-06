@@ -1,4 +1,4 @@
-package com.example.flutter_app
+package kr.co.lecle.flutter_app_demo
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

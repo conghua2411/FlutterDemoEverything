@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:tree_view/tree_view.dart';
 
+const emptyList = [];
+
+class Item {
+  String title;
+  List<Item> children;
+
+  Item({
+    this.title = '',
+    this.children,
+  });
+}
+
 class ReorderTreeList extends StatefulWidget {
   @override
   State createState() => ReorderTreeListState();
@@ -9,6 +21,47 @@ class ReorderTreeList extends StatefulWidget {
 class ReorderTreeListState extends State<ReorderTreeList> {
   List<String> listData = ['item1', 'item2', 'item3'];
 
+  List<Item> treeData;
+
+  List<Widget> listWidgetTree = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    treeData = [
+      Item(title: 'father1', children: [
+        Item(title: 'child1'),
+        Item(title: 'child2'),
+        Item(title: 'child3'),
+      ]),
+      Item(title: 'father2', children: [
+        Item(title: 'child4'),
+        Item(title: 'child5'),
+        Item(title: 'child6'),
+        Item(title: 'child7'),
+        Item(title: 'child8'),
+        Item(title: 'child9'),
+        Item(title: 'child10'),
+      ]),
+      Item(title: 'father3', children: [
+        Item(title: 'child11'),
+        Item(title: 'child12'),
+        Item(title: 'child13'),
+        Item(title: 'child14'),
+        Item(title: 'child15'),
+      ]),
+    ];
+
+    List<Item> list = convertTreeToList(treeData);
+
+    print('list : ${list.length}');
+
+    listWidgetTree = convertTreeToListWidget(treeData);
+
+    print('listWidget : ${listWidgetTree.length}');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +69,14 @@ class ReorderTreeListState extends State<ReorderTreeList> {
         title: Text('ReorderTreeList'),
       ),
       body: Center(
-        child: _buildReoderableListView2(),
+//        child: _buildTreeAndReoderListView(treeData),
+//        child: SingleChildScrollView(
+//          scrollDirection: Axis.vertical,
+//          child: _buildListItemTreeView(treeData),
+//        ),
+//        child: buildListFromTree(treeData),
+        child: buildListFromTree2(),
+//        child: _buildReoderableListView2(),
       ),
     );
   }
@@ -115,16 +175,246 @@ class ReorderTreeListState extends State<ReorderTreeList> {
         );
       }).toList(),
       onReorder: (oldIndex, newIndex) {
-        if (oldIndex != newIndex && newIndex < listData.length) {
-          print(
-              '_buildReoderableListView2: oldIndex: $oldIndex ---- newIndex: $newIndex');
+        print(
+            '_buildReoderableListView2: oldIndex: $oldIndex ---- newIndex: $newIndex');
+        if (newIndex > listData.length - 1) {
+          newIndex = listData.length - 1;
+        }
 
+        if (oldIndex != newIndex && newIndex < listData.length) {
           setState(() {
             String item = listData[oldIndex];
 
             listData.removeAt(oldIndex);
 
             listData.insert(newIndex, item);
+          });
+        }
+      },
+    );
+  }
+
+  _buildTreeAndReoderListView(List<Item> data) {
+    print('asdasd asdas das dasdasd ${data.length}');
+    return ReorderableListView(
+      children: data.map(
+        (item) {
+          return _buildTreeItem(item);
+        },
+      ).toList(),
+      onReorder: (oldIndex, newIndex) {},
+    );
+  }
+
+  Widget _buildTreeItem(Item treeData) {
+    return Container(
+      color: Colors.transparent,
+      key: ValueKey(treeData.title),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                border: Border.all(color: Colors.amber, width: 2),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Center(
+                child: Text(treeData.title),
+              ),
+            ),
+            Container(
+              height: treeData.children != null
+                  ? treeData.children.length * 66.0
+                  : 0,
+              child: treeData.children != null
+                  ? Row(
+                      children: <Widget>[
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: _buildTreeAndReoderListView(treeData.children),
+                        ),
+                      ],
+                    )
+                  : Container(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// build tree view
+  Widget _buildItemTreeView(Item item) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: <Widget>[
+          Container(
+            height: 50,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: Colors.amber,
+                width: 2,
+              ),
+            ),
+            child: Center(
+              child: Text(item.title),
+            ),
+          ),
+          item.children != null
+              ? Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 40,
+                    ),
+                    Expanded(child: _buildListItemTreeView(item.children)),
+                  ],
+                )
+              : Container(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildListItemTreeView(List<Item> listItem) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      children: listItem.map((item) {
+        return _buildItemTreeView(item);
+      }).toList(),
+    );
+  }
+
+  /// 1 list
+//  Widget _build1List(List<Item> tree) {
+//    List<Widget> listItem = _getListItemFromTree(tree);
+//  }
+
+//  List<Widget> _getListItemFromTree(List<Item> tree, {int level = 0}) {
+//    return tree.map((item) {
+//      return
+//    }).toList();
+//  }
+
+  Widget _getItemFromTree(Item item, {int level = 0}) {
+    return Row(
+      children: <Widget>[
+        SizedBox(width: 20.0 * level),
+        Expanded(
+          child: Container(
+            child: Text(item.title),
+          ),
+        ),
+      ],
+    );
+  }
+
+  List<Item> convertTreeToList(List<Item> tree) {
+    List<Item> listReturn = [];
+    if (tree == null || tree.length == 0) {
+      return [];
+    }
+
+    tree.forEach((item) {
+      listReturn.add(item);
+      listReturn.addAll(convertTreeToList(item.children));
+    });
+
+    return listReturn;
+  }
+
+  List<Widget> convertTreeToListWidget(List<Item> tree, {int level = 0}) {
+    List<Widget> list = [];
+
+    if (tree == null || tree.length == 0) {
+      return [];
+    }
+
+    tree.forEach((item) {
+      list.add(Container(
+        height: 50,
+        key: ValueKey(item.title),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 20.0 * level,
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border.all(
+                    color: Colors.amber,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Center(
+                  child: Text(item.title),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ));
+      list.addAll(convertTreeToListWidget(item.children, level: level + 1));
+    });
+
+    return list;
+  }
+
+  Widget buildListFromTree(List<Item> tree) {
+    List<Widget> listConvert = convertTreeToListWidget(tree);
+
+    return ReorderableListView(
+      children: listConvert,
+      onReorder: (oldIndex, newIndex) {
+        print(
+            'buildListFromTree: oldIndex - $oldIndex --- newIndex - $newIndex');
+        if (newIndex > listData.length - 1) {
+          newIndex = listData.length - 1;
+        }
+
+        if (oldIndex != newIndex && newIndex < listData.length) {
+          setState(() {
+            String item = listData[oldIndex];
+
+            listData.removeAt(oldIndex);
+
+            listData.insert(newIndex, item);
+          });
+        }
+      },
+    );
+  }
+
+  Widget buildListFromTree2() {
+    return ReorderableListView(
+      children: listWidgetTree,
+      onReorder: (oldIndex, newIndex) {
+        print(
+            'buildListFromTree: oldIndex - $oldIndex --- newIndex - $newIndex');
+        if (newIndex > listData.length - 1) {
+          newIndex = listData.length - 1;
+        }
+
+        if (oldIndex != newIndex && newIndex < listData.length) {
+          setState(() {
+            Widget item = listWidgetTree[oldIndex];
+
+            listWidgetTree.removeAt(oldIndex);
+
+            listWidgetTree.insert(newIndex, item);
           });
         }
       },

@@ -1,4 +1,6 @@
 PODS:
+  - "app_settings (1.0.6+2)":
+    - Flutter
   - audioplayers (0.0.1):
     - Flutter
   - camera (0.0.1):
@@ -29,15 +31,16 @@ PODS:
     - Flutter
   - "permission_handler (3.2.1+1)":
     - Flutter
+  - photo_manager (0.0.1):
+    - Flutter
   - Reachability (3.2)
   - uni_links (0.0.1):
     - Flutter
   - video_player (0.0.1):
     - Flutter
-  - wifi (0.0.1):
-    - Flutter
 
 DEPENDENCIES:
+  - app_settings (from `.symlinks/plugins/app_settings/ios`)
   - audioplayers (from `.symlinks/plugins/audioplayers/ios`)
   - camera (from `.symlinks/plugins/camera/ios`)
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
@@ -50,9 +53,9 @@ DEPENDENCIES:
   - location (from `.symlinks/plugins/location/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - photo_manager (from `.symlinks/plugins/photo_manager/ios`)
   - uni_links (from `.symlinks/plugins/uni_links/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
-  - wifi (from `.symlinks/plugins/wifi/ios`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -60,6 +63,8 @@ SPEC REPOS:
     - Reachability
 
 EXTERNAL SOURCES:
+  app_settings:
+    :path: ".symlinks/plugins/app_settings/ios"
   audioplayers:
     :path: ".symlinks/plugins/audioplayers/ios"
   camera:
@@ -84,14 +89,15 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
   permission_handler:
     :path: ".symlinks/plugins/permission_handler/ios"
+  photo_manager:
+    :path: ".symlinks/plugins/photo_manager/ios"
   uni_links:
     :path: ".symlinks/plugins/uni_links/ios"
   video_player:
     :path: ".symlinks/plugins/video_player/ios"
-  wifi:
-    :path: ".symlinks/plugins/wifi/ios"
 
 SPEC CHECKSUMS:
+  app_settings: 27651d311385d34d91afa163c0e4539cfd0c4c5d
   audioplayers: 84f968cea3f2deab00ec4f8ff53358b3c0b3992c
   camera: d56ad165545ae5a0ffb892376033760a969c68c8
   connectivity: c72716e202a1225ec4810740d5cb56b8ae3bf4cc
@@ -105,10 +111,10 @@ SPEC CHECKSUMS:
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
   permission_handler: 6a1b2f94f866da8bd19fa67f3c8f4b9f38580efb
+  photo_manager: 47ca9adddeea702246c96c6f67769f03907cd953
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   uni_links: d97da20c7701486ba192624d99bffaaffcfc298a
   video_player: 3964090a33353060ed7f58aa6427c7b4b208ec21
-  wifi: d7d77c94109e36c4175d845f0a5964eadba71060
 
 PODFILE CHECKSUM: b6a0a141693093b304368d08511b46cf3d1d0ac5
 

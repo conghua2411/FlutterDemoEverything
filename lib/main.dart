@@ -13,7 +13,9 @@ import 'package:flutter_app/pageSlide/PageSlideDemo.dart';
 import 'package:flutter_app/palette_generator_demo/palette_generator_demo.dart';
 import 'package:flutter_app/permission/permision_demo.dart';
 import 'package:flutter_app/reorder_tree_list/reorder_tree_list.dart';
+import 'package:flutter_app/resize_image_demo/resize_image_demo.dart';
 import 'package:flutter_app/shoppingCart/screen/cartList.dart';
+import 'package:flutter_app/sim_info_demo/sim_info_demo.dart';
 import 'package:flutter_app/sliding_setting_demo/sliding_setting_demo.dart';
 import 'package:flutter_app/sliver_demo/sliver_demo.dart';
 import 'package:flutter_app/snake/SnakeScreen.dart';
@@ -39,6 +41,7 @@ import 'aws_cognito_prod/aws_cognito_prod.dart';
 import 'bottom_edit_view/bottom_edit_view.dart';
 import 'bottom_loadmore/bottom_loadmore_demo.dart';
 import 'bottom_sheet_keyboard/bottom_sheet_keyboard.dart';
+import 'challenge_app_profile/challenge_app_profile_demo.dart';
 import 'cognito/CognitoScreen.dart';
 import 'column_demo/column_demo.dart';
 import 'comment_ui_demo/comment_ui_demo.dart';
@@ -60,6 +63,7 @@ import 'flutter_sound/flutter_sound_screen.dart';
 import 'keyboard_initstate.dart';
 import 'language_demo/language_demo.dart';
 import 'load_json_demo/load_json_demo.dart';
+import 'open_wifi_setting_demo/open_wifi_setting_demo.dart';
 import 'rxDartDemo/RxDartDemo.dart';
 import 'view_page_with_bottom_bar/view_page_with_bottom_bar.dart';
 import 'web_socket_channel/demo_state.dart';
@@ -642,6 +646,34 @@ class SecondRoute extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                         context, SlideRightRoute(widget: KeyboardInit()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('SimInfoDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: SimInfoDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('OpenWifiSettingDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: OpenWifiSettingDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('ResizeImageDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: ResizeImageDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('ChallengeAppProfileDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, SlideRightRoute(widget: ChallengeAppProfileDemo()));
                   },
                 ),
               ],
