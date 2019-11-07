@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'challenge_gallery.dart';
 
@@ -11,6 +15,31 @@ class ChallengeAppProfileDemo extends StatefulWidget {
 }
 
 class ChallengeAppProfileState extends State<ChallengeAppProfileDemo> {
+  /// test
+  String textTest = '';
+  StreamController<String> textTestStream = StreamController.broadcast();
+
+  BehaviorSubject<Uint8List> _bsImage;
+
+  @override
+  void initState() {
+    super.initState();
+    textTestStream = StreamController();
+
+    _bsImage = BehaviorSubject();
+  }
+
+  @override
+  void dispose() {
+    textTestStream.close();
+
+    _bsImage.drain();
+
+    _bsImage.close();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,13 +118,31 @@ class ChallengeAppProfileState extends State<ChallengeAppProfileDemo> {
                       borderRadius: BorderRadius.circular(50),
                       color: Colors.grey,
                     ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        image: DecorationImage(
-                            image: NetworkImage(imageUrl), fit: BoxFit.cover),
-                      ),
-                    ),
+                    child: StreamBuilder<Uint8List>(
+                        initialData: null,
+                        stream: _bsImage,
+                        builder: (context, snapshot) {
+                          if (snapshot.data == null) {
+                            return Container(
+                              child: Icon(
+                                Icons.person,
+                                color: Colors.blue,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                            );
+                          } else {
+                            return Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                image: DecorationImage(
+                                    image: MemoryImage(snapshot.data),
+                                    fit: BoxFit.cover),
+                              ),
+                            );
+                          }
+                        }),
                   ),
                 ),
                 Text('Username'),
@@ -122,12 +169,19 @@ class ChallengeAppProfileState extends State<ChallengeAppProfileDemo> {
                       Icon(
                         Icons.person_pin,
                       ),
-                      Expanded(
-                        child: Text(
-                          'asdasd asd asd asd asd sad asda asd asd asd asd asd asd qwd qwd',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                      Flexible(
+                        child: StreamBuilder<Uint8List>(
+                            initialData: null,
+                            stream: _bsImage,
+                            builder: (context, snapshot) {
+                              return Text(
+                                snapshot.data != null
+                                    ? snapshot.data.length.toString()
+                                    : 'null',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              );
+                            }),
                       ),
                       Container(
                         width: 24,
@@ -225,6 +279,11 @@ class ChallengeAppProfileState extends State<ChallengeAppProfileDemo> {
 
   _openGallery() {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (_) => ChallengeGallery()));
+        .push<Uint8List>(MaterialPageRoute(builder: (_) => ChallengeGallery()))
+        .then((image) {
+      if (image != null) {
+        _bsImage.add(image);
+      }
+    });
   }
 }

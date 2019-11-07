@@ -23,7 +23,7 @@ class DeviceInfoDemoState extends State<DeviceInfoDemo> {
     if (Platform.isAndroid) {
       print('android');
       deviceInfo.androidInfo.then((androidDeviceInfo) {
-        print('android success');
+        print('android success --- ${androidDeviceInfo.androidId}');
         deviceInfoText = 'version - ${androidDeviceInfo.version.codename}\n'
             'model - ${androidDeviceInfo.model}\n'
             'board - ${androidDeviceInfo.board}\n'
@@ -41,7 +41,7 @@ class DeviceInfoDemoState extends State<DeviceInfoDemo> {
     } else if (Platform.isIOS) {
       print('ios');
       deviceInfo.iosInfo.then((iosDeviceInfo) {
-        print('ios success');
+        print('ios success --- ${iosDeviceInfo.identifierForVendor}');
         String modelName = calculateModelName(iosDeviceInfo);
         deviceInfoText = 'model - ${iosDeviceInfo.model}\n'
             'name - ${iosDeviceInfo.name}\n'

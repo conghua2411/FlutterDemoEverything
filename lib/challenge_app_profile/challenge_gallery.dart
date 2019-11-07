@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 import 'AlbumModel.dart';
+import 'ImageModel.dart';
 
 class ChallengeGallery extends StatefulWidget {
   @override
@@ -25,6 +26,8 @@ class ChallengeGalleryState extends State<ChallengeGallery> {
   int currentPage = 0;
 
   int currentImageSelect = -1;
+
+  List<ImageModel> listImage = [];
 
   @override
   void initState() {
@@ -64,15 +67,27 @@ class ChallengeGalleryState extends State<ChallengeGallery> {
     super.dispose();
   }
 
-  _getListImage(int page, {int limit = 24}) async {
+  _getListImage(int page, {int limit = 9}) async {
     if (listAssetPathEntity != null || listAssetPathEntity.isNotEmpty) {
       List<AssetEntity> listAsset =
           await listAssetPathEntity[0].getAssetListPaged(page, limit);
-      listAsset.forEach((image) async {
-        imageListThumb.add(await image.thumbData);
-        imageThumbStream.add(imageListThumb);
-      });
+
+      for (int i = 0; i < listAsset.length; i++) {
+        Uint8List thumb = await listAsset[i].thumbDataWithSize(120, 120);
+        listImage.add(ImageModel(imageEntity: listAsset[i], thumb: thumb));
+
+        imageListThumb.add(thumb);
+
+        if (i == listAsset.length - 1) {
+          imageThumbStream.add(imageListThumb);
+        }
+      }
     }
+  }
+
+  _loadMore() {
+    currentPage++;
+    _getListImage(currentPage);
   }
 
   @override
@@ -81,13 +96,20 @@ class ChallengeGalleryState extends State<ChallengeGallery> {
       appBar: AppBar(
         actions: <Widget>[
           FlatButton(
-            onPressed: () {
-              print('it is ok load more');
-              currentPage++;
-              _getListImage(currentPage);
-            },
+            onPressed: currentImageSelect != -1
+                ? () {
+                    Navigator.of(context)
+                        .pop(listImage[currentImageSelect].thumb);
+                  }
+                : null,
             child: Text(
               'OK',
+              style: TextStyle(
+                color: currentImageSelect != -1 ? Colors.black : Colors.grey,
+                fontWeight: currentImageSelect != -1
+                    ? FontWeight.bold
+                    : FontWeight.normal,
+              ),
             ),
           ),
         ],
@@ -97,18 +119,51 @@ class ChallengeGalleryState extends State<ChallengeGallery> {
           initialData: [],
           stream: imageThumbStream.stream,
           builder: (context, snapshot) {
+            print('ChallengeGallery: grid build - ${snapshot.data.length}');
             return GridView.builder(
               gridDelegate:
                   SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
               itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 4,
-                    horizontal: 4,
-                  ),
-                  child: Image.memory(
-                    snapshot.data[index],
-                    fit: BoxFit.cover,
+                if (index == snapshot.data.length - 1) {
+                  print('load more $index');
+                  _loadMore();
+                }
+
+                return InkWell(
+                  onTap: () {
+                    setState(() {
+                      currentImageSelect = index;
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 4,
+                      horizontal: 4,
+                    ),
+                    child: Stack(
+                      children: <Widget>[
+                        Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          child: Image.memory(
+                            snapshot.data[index],
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Opacity(
+                          opacity: index == currentImageSelect ? 1 : 0,
+                          child: Container(
+                            color: Color.fromRGBO(0, 0, 0, 0.6),
+                            child: Center(
+                              child: Icon(
+                                Icons.check_circle,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
