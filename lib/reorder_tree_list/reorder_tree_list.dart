@@ -6,10 +6,12 @@ const emptyList = [];
 class Item {
   String title;
   List<Item> children;
+  int level;
 
   Item({
     this.title = '',
     this.children,
+    this.level,
   });
 }
 
@@ -25,37 +27,44 @@ class ReorderTreeListState extends State<ReorderTreeList> {
 
   List<Widget> listWidgetTree = [];
 
+  List<Item> listTreeData = [];
+
   @override
   void initState() {
     super.initState();
 
     treeData = [
-      Item(title: 'father1', children: [
-        Item(title: 'child1'),
-        Item(title: 'child2'),
-        Item(title: 'child3'),
+      Item(title: 'father1', level: 0, children: [
+        Item(title: 'child1', level: 1),
+        Item(title: 'child2', level: 1),
+        Item(title: 'child3', level: 1),
       ]),
-      Item(title: 'father2', children: [
-        Item(title: 'child4'),
-        Item(title: 'child5'),
-        Item(title: 'child6'),
-        Item(title: 'child7'),
-        Item(title: 'child8'),
-        Item(title: 'child9'),
-        Item(title: 'child10'),
+      Item(title: 'father2', level: 0, children: [
+        Item(title: 'child4', level: 1),
+        Item(title: 'child5', level: 1),
+        Item(title: 'child6', level: 1, children: [
+          Item(title: 'child16', level: 2),
+          Item(title: 'child17', level: 2),
+          Item(title: 'child18', level: 2),
+          Item(title: 'child19', level: 2),
+        ]),
+        Item(title: 'child7', level: 1),
+        Item(title: 'child8', level: 1),
+        Item(title: 'child9', level: 1),
+        Item(title: 'child10', level: 1),
       ]),
-      Item(title: 'father3', children: [
-        Item(title: 'child11'),
-        Item(title: 'child12'),
-        Item(title: 'child13'),
-        Item(title: 'child14'),
-        Item(title: 'child15'),
+      Item(title: 'father3', level: 0, children: [
+        Item(title: 'child11', level: 1),
+        Item(title: 'child12', level: 1),
+        Item(title: 'child13', level: 1),
+        Item(title: 'child14', level: 1),
+        Item(title: 'child15', level: 1),
       ]),
     ];
 
-    List<Item> list = convertTreeToList(treeData);
+    listTreeData = convertTreeToList(treeData);
 
-    print('list : ${list.length}');
+    print('list : ${listTreeData.length}');
 
     listWidgetTree = convertTreeToListWidget(treeData);
 
@@ -75,7 +84,8 @@ class ReorderTreeListState extends State<ReorderTreeList> {
 //          child: _buildListItemTreeView(treeData),
 //        ),
 //        child: buildListFromTree(treeData),
-        child: buildListFromTree2(),
+//        child: buildListFromTree2(),
+        child: buildListFromTree3(),
 //        child: _buildReoderableListView2(),
       ),
     );
@@ -403,18 +413,76 @@ class ReorderTreeListState extends State<ReorderTreeList> {
       children: listWidgetTree,
       onReorder: (oldIndex, newIndex) {
         print(
-            'buildListFromTree: oldIndex - $oldIndex --- newIndex - $newIndex');
-        if (newIndex > listData.length - 1) {
-          newIndex = listData.length - 1;
+            'buildListFromTree2: oldIndex - $oldIndex --- newIndex - $newIndex');
+        if (newIndex > listWidgetTree.length - 1) {
+          newIndex = listWidgetTree.length - 1;
         }
 
-        if (oldIndex != newIndex && newIndex < listData.length) {
+        if (oldIndex != newIndex && newIndex < listWidgetTree.length) {
           setState(() {
             Widget item = listWidgetTree[oldIndex];
 
             listWidgetTree.removeAt(oldIndex);
 
             listWidgetTree.insert(newIndex, item);
+
+            print('buildListFromTree2: finish');
+          });
+        }
+      },
+    );
+  }
+
+  Widget buildListFromTree3() {
+    return ReorderableListView(
+      children: listTreeData.map((item) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          key: ValueKey(item.title),
+          child: Container(
+            height: 50,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 50.0 * item.level,
+                ),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      border: Border.all(
+                        color: Colors.amber,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: Text(item.title),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }).toList(),
+      onReorder: (oldIndex, newIndex) {
+        print(
+            'buildListFromTree2: oldIndex - $oldIndex --- newIndex - $newIndex');
+
+        if (oldIndex != newIndex && newIndex <= listTreeData.length) {
+          setState(() {
+            Item item = listTreeData[oldIndex];
+
+            listTreeData.removeAt(oldIndex);
+
+            if (newIndex > oldIndex) {
+              newIndex--;
+            }
+
+            listTreeData.insert(newIndex, item);
+
+            print('buildListFromTree2: finish');
           });
         }
       },
