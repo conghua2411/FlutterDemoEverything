@@ -19,6 +19,7 @@ import 'package:flutter_app/sim_info_demo/sim_info_demo.dart';
 import 'package:flutter_app/sliding_setting_demo/sliding_setting_demo.dart';
 import 'package:flutter_app/sliver_demo/sliver_demo.dart';
 import 'package:flutter_app/snake/SnakeScreen.dart';
+import 'package:flutter_app/social_login/social_login_demo.dart';
 import 'package:flutter_app/socket/SocketDemo.dart';
 import 'package:flutter_app/ticTacToe/TicTacToe.dart';
 import 'package:flutter_app/tooltip/super_tooltip_demo.dart';
@@ -60,9 +61,11 @@ import 'device_info_demo/device_info_demo.dart';
 import 'draggable_demo/draggable_demo.dart';
 import 'floating_button_draggable/floating_button_draggable.dart';
 import 'flutter_sound/flutter_sound_screen.dart';
+import 'instabug_demo/instabug_demo.dart';
 import 'keyboard_initstate.dart';
 import 'language_demo/language_demo.dart';
 import 'load_json_demo/load_json_demo.dart';
+import 'local_file_demo/local_file_demo.dart';
 import 'open_wifi_setting_demo/open_wifi_setting_demo.dart';
 import 'rxDartDemo/RxDartDemo.dart';
 import 'view_page_with_bottom_bar/view_page_with_bottom_bar.dart';
@@ -674,6 +677,27 @@ class SecondRoute extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                         context, SlideRightRoute(widget: ChallengeAppProfileDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('SocialLoginDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => SocialLoginDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('InstabugDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => InstabugDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('LocalFileDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => LocalFileDemo()));
                   },
                 ),
               ],
