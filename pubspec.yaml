@@ -48,7 +48,6 @@ dependencies:
   palette_generator: ^0.2.0
   percent_indicator: ^2.1.1
   permission_handler: ^3.2.1+1
-  google_maps_flutter: ^0.5.20+1
   location: ^2.3.5
   super_tooltip: ^0.9.0
   sliding_up_panel: ^0.3.6
@@ -62,6 +61,19 @@ dependencies:
   flutter_facebook_login: ^3.0.0
 
   instabug_flutter: ^8.6.4
+  provider: ^3.1.0+1
+
+  google_sign_in: ^4.0.14
+  firebase_messaging: ^5.1.8
+
+  shared_preferences: ^0.5.4+5
+
+  flutter_kakao_login: ^0.5.0
+
+  flutter_line_sdk: ^1.2.1
+
+  sns_wrapper:
+    path: ./sns_wrapper
 
 dev_dependencies:
   flutter_test:

@@ -25,6 +25,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 28
 
@@ -76,5 +78,4 @@ dependencies {
     implementation 'com.amazonaws:aws-android-sdk-s3:2.14.+'
     implementation ('com.amazonaws:aws-android-sdk-mobile-client:2.14.+@aar') { transitive = true }
     implementation ('com.amazonaws:aws-android-sdk-auth-userpools:2.14.+@aar') { transitive = true }
-
 }

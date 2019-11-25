@@ -9,4 +9,6 @@
       **NOTE**: The scheme needs to start with `fb` and then your ID.
     -->
     <string name="fb_login_protocol_scheme">fb2465505846996416</string>
+
+    <string name="kakao_app_key">e860926f6cfa048fd3f766f88c97ea1e</string>
 </resources>

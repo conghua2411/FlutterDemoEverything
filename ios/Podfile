@@ -35,6 +35,11 @@ end
 target 'Runner' do
   use_frameworks!
 
+  # add pods for desired Firebase products
+  # https://firebase.google.com/docs/ios/setup#available-pods
+  pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
+  
   # Prepare symlinks folder. We use symlinks to avoid having Podfile.lock
   # referring to absolute paths on developers' machines.
   system('rm -rf .symlinks')

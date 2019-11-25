@@ -20,10 +20,89 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.279985122604-hso06rdnghv1jk1jivap3h8247690lhc</string>
+			</array>
+		</dict>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <!--
+                 Replace "000000000000" with your Facebook App ID here.
+                 **NOTE**: The scheme needs to start with `fb` and then your ID.
+                 -->
+                <string>fb2465505846996416</string>
+            </array>
+        </dict>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string></string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>kakaoe860926f6cfa048fd3f766f88c97ea1e</string>
+            </array>
+        </dict>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <!-- Specify URL scheme to use when returning from LINE to your app. -->
+                <string>line3rdp.kr.co.lecle.flutter-app-demo</string>
+            </array>
+        </dict>
+	</array>
+    <key>FacebookAppID</key>
+    
+    <!-- Replace "000000000000" with your Facebook App ID here. -->
+    <string>2465505846996416</string>
+    <key>FacebookDisplayName</key>
+    
+    <!-- Replace "YOUR_APP_NAME" with your Facebook App name. -->
+    <string>conghua_lecle_demo</string>
+    
+    <key>KAKAO_APP_KEY</key>
+    <string>e860926f6cfa048fd3f766f88c97ea1e</string>
+    
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>fbapi</string>
+        <string>fb-messenger-share-api</string>
+        <string>fbauth2</string>
+        <string>fbshareextension</string>
+        
+        <string>kakaoe860926f6cfa048fd3f766f88c97ea1e</string>
+        <string>kakaokompassauth</string>
+        <string>storykompassauth</string>
+        <string>kakaolink</string>
+        <string>storylink</string>
+        
+        <string>lineauth2</string>
+    </array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>FacebookAppID</key>
+	<string>2465505846996416</string>
+	<key>FacebookDisplayName</key>
+	<string>Conghua Lecle Demo</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Instabug would like to access your microphone.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Instabug would like to access your photos.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -43,37 +122,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>App need your agree, can visit your album</string>
-    
-    <!-- Facebook Login configuration -->
-    <key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>fb2465505846996416</string>
-            </array>
-        </dict>
-    </array>
-    <key>FacebookAppID</key>
-    <string>2465505846996416</string>
-    <key>FacebookDisplayName</key>
-    <string>Conghua Lecle Demo</string>
-    
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>fbapi</string>
-        <string>fb-messenger-share-api</string>
-        <string>fbauth2</string>
-        <string>fbshareextension</string>
-    </array>
-    
-    <!-- Instabug configuration-->
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Instabug would like to access your microphone.</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Instabug would like to access your photos.</string>
-    
 </dict>
 </plist>
