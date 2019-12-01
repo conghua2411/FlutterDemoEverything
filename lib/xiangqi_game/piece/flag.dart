@@ -1,0 +1,4 @@
+enum Flag {
+  BLACK,
+  RED,
+}

@@ -28,6 +28,7 @@ import 'package:flutter_app/uploadS3/upload_s3_screen.dart';
 import 'package:flutter_app/viewPager/ViewPager.dart';
 import 'package:flutter_app/widgetDemo/memrise.dart';
 import 'package:flutter_app/wifi_info_demo/wifi_info_demo.dart';
+import 'package:flutter_app/xiangqi_game/xiangqui_game.dart';
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:image_picker/image_picker.dart';
@@ -625,13 +626,13 @@ class SecondRoute extends StatelessWidget {
                         context, SlideRightRoute(widget: SimInfoDemo()));
                   },
                 ),
-                RaisedButton(
-                  child: Text('OpenWifiSettingDemo'),
-                  onPressed: () {
-                    Navigator.push(
-                        context, SlideRightRoute(widget: OpenWifiSettingDemo()));
-                  },
-                ),
+//                RaisedButton(
+//                  child: Text('OpenWifiSettingDemo'),
+//                  onPressed: () {
+//                    Navigator.push(
+//                        context, SlideRightRoute(widget: OpenWifiSettingDemo()));
+//                  },
+//                ),
                 RaisedButton(
                   child: Text('ResizeImageDemo'),
                   onPressed: () {
@@ -700,6 +701,13 @@ class SecondRoute extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                         context, MaterialPageRoute(builder: (_) => LocalSnsPackageDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('XiangqiGame'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => XiangqiGame()));
                   },
                 ),
               ],

@@ -5,7 +5,6 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.getIntent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -16,15 +15,11 @@ import io.flutter.app.FlutterActivity
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
 import java.io.File
-import android.content.ContentValues.TAG
 import android.net.Uri
 import android.os.Environment
-import com.dexterous.flutterlocalnotifications.FlutterLocalNotificationsPlugin.showNotification
 import io.flutter.plugin.common.EventChannel
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
-import java.util.logging.StreamHandler
 import com.amazonaws.mobile.client.UserStateDetails
 import com.amazonaws.mobile.client.AWSMobileClient
 import com.amazonaws.mobile.client.Callback
@@ -32,7 +27,6 @@ import com.amazonaws.mobile.client.UserState
 import com.amazonaws.mobile.client.results.SignInResult
 import com.amazonaws.mobileconnectors.s3.transferutility.*
 import com.amazonaws.services.s3.AmazonS3Client
-import io.flutter.plugin.common.MethodCall
 import java.lang.Exception
 
 

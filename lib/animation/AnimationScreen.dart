@@ -8,6 +8,7 @@ import 'fancyBackground/FancyBackgroundScreen.dart';
 import 'flip/flip_image_screen.dart';
 import 'hero/HeroCustomRoute.dart';
 import 'hero/HeroDemoScreen.dart';
+import 'image_drag_pop/image_drag_pop.dart';
 import 'image_hero/image_hero_demo.dart';
 import 'list_builder_animated/list_builder_animated_demo.dart';
 import 'music_animation/music_animation_demo.dart';
@@ -35,6 +36,7 @@ class AnimationState extends State<AnimationScreen> {
     'NoSignalDemo',
     'AnimatedListDemo',
     'ListBuilderAnimatedDemo',
+    'ImageDragPop',
   ];
 
   @override
@@ -122,6 +124,10 @@ class AnimationState extends State<AnimationScreen> {
       case 12:
         Navigator.push(
             context, MaterialPageRoute(builder: (_) => ListBuilderAnimatedDemo()));
+        break;
+      case 13:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => ImageDragPop()));
         break;
       default:
         break;

@@ -1,6 +1,4 @@
 PODS:
-  - "app_settings (1.0.6+2)":
-    - Flutter
   - AppAuth (1.2.0):
     - AppAuth/Core (= 1.2.0)
     - AppAuth/ExternalUserAgent (= 1.2.0)
@@ -184,7 +182,6 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - app_settings (from `.symlinks/plugins/app_settings/ios`)
   - audioplayers (from `.symlinks/plugins/audioplayers/ios`)
   - camera (from `.symlinks/plugins/camera/ios`)
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
@@ -239,8 +236,6 @@ SPEC REPOS:
     - Reachability
 
 EXTERNAL SOURCES:
-  app_settings:
-    :path: ".symlinks/plugins/app_settings/ios"
   audioplayers:
     :path: ".symlinks/plugins/audioplayers/ios"
   camera:
@@ -285,7 +280,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/video_player/ios"
 
 SPEC CHECKSUMS:
-  app_settings: 27651d311385d34d91afa163c0e4539cfd0c4c5d
   AppAuth: bce82c76043657c99d91e7882e8a9e1a93650cd4
   audioplayers: 84f968cea3f2deab00ec4f8ff53358b3c0b3992c
   camera: d56ad165545ae5a0ffb892376033760a969c68c8
