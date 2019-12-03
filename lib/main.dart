@@ -62,6 +62,7 @@ import 'firebase_messaging/firebase_pref_data.dart';
 import 'floating_button_draggable/floating_button_draggable.dart';
 import 'flutter_sound/flutter_sound_screen.dart';
 import 'format_date_time/format_date_time_demo.dart';
+import 'game_of_life/game_of_life.dart';
 import 'instabug_demo/instabug_demo.dart';
 import 'keyboard_initstate.dart';
 import 'language_demo/language_demo.dart';
@@ -708,6 +709,13 @@ class SecondRoute extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                         context, MaterialPageRoute(builder: (_) => XiangqiGame()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('GameOfLife'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => GameOfLife()));
                   },
                 ),
               ],

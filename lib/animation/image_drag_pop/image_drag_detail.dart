@@ -79,7 +79,7 @@ class ImageDragDetailState extends State<ImageDragDetail>
 
                 if (detail.velocity.pixelsPerSecond.dx.abs() +
                         detail.velocity.pixelsPerSecond.dy.abs() >
-                    100) {
+                    200) {
                   Navigator.of(context).pop();
                 } else {
                   backAnimation = Tween<Offset>(
@@ -101,9 +101,11 @@ class ImageDragDetailState extends State<ImageDragDetail>
                   print('new Offset : ${snapshot.data}');
                   return Transform.translate(
                     offset: calculateTranslate(snapshot.data),
+//                    offset: Offset(0, 0),
                     child: Transform.rotate(
-//                      angle: calculateAngle(snapshot.data),
-                      angle: 0,
+                      angle: calculateAngle(snapshot.data),
+//                      angle: 0,
+//                      origin: startDragOffset,
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Image.network(widget.imageUrl),
@@ -141,9 +143,39 @@ class ImageDragDetailState extends State<ImageDragDetail>
   double calculateAngle(Offset newOffset) {
     if (startDragOffset != null) {
       Offset currentOffset = Offset(
-          newOffset.dx + startDragOffset.dx, newOffset.dy - startDragOffset.dy);
+          newOffset.dx + startDragOffset.dx, newOffset.dy + startDragOffset.dy);
 
-      return newOffset.dy / MediaQuery.of(context).size.height;
+      print('------------------- start dx: ${startDragOffset.dx}');
+      print('------------------- newOffset dx: ${newOffset.dx}');
+      print('------------------- current dx: ${currentOffset.dx}');
+
+      print(
+          '------------------- width screen: ${MediaQuery.of(context).size.width}');
+
+      print('------------------- start dy: ${startDragOffset.dy}');
+      print('------------------- newOffset dy: ${newOffset.dy}');
+      print('------------------- current dy: ${currentOffset.dy}');
+
+      print(
+          '------------------- height screen: ${MediaQuery.of(context).size.height}');
+
+      print('------------------------------------------------------');
+
+      print('alo1234 ${currentOffset.dy - startDragOffset.dy}');
+      print(
+          '--------- ${-newOffset.dy / MediaQuery.of(context).size.height} :::::: ${-newOffset.dx / MediaQuery.of(context).size.height} --------');
+
+      print(
+          '--------- ${(currentOffset.dx - MediaQuery.of(context).size.width / 2) / MediaQuery.of(context).size.width / 2} :::::: ${(currentOffset.dy - MediaQuery.of(context).size.height / 2) / MediaQuery.of(context).size.height / 2} --------');
+
+//      return (newOffset.dy / MediaQuery.of(context).size.height) * (pi / 3);
+      return ((currentOffset.dx - MediaQuery.of(context).size.width / 2) /
+              MediaQuery.of(context).size.width /
+              2) *
+          ((currentOffset.dy - MediaQuery.of(context).size.height / 2) /
+              MediaQuery.of(context).size.height /
+              2) *
+          pi;
 
 //      if (currentOffset.dx < MediaQuery.of(context).size.width / 2) {
 //        return newOffset.dy / MediaQuery.of(context).size.height;
