@@ -63,6 +63,7 @@ import 'floating_button_draggable/floating_button_draggable.dart';
 import 'flutter_sound/flutter_sound_screen.dart';
 import 'format_date_time/format_date_time_demo.dart';
 import 'game_of_life/game_of_life.dart';
+import 'image_crop_circle/image_crop_circle.dart';
 import 'instabug_demo/instabug_demo.dart';
 import 'keyboard_initstate.dart';
 import 'language_demo/language_demo.dart';
@@ -70,6 +71,7 @@ import 'load_json_demo/load_json_demo.dart';
 import 'local_file_demo/local_file_demo.dart';
 import 'local_sns_package_demo/local_sns_package_demo.dart';
 import 'open_wifi_setting_demo/open_wifi_setting_demo.dart';
+import 'photo_view_demo/photo_view_demo.dart';
 import 'rxDartDemo/RxDartDemo.dart';
 import 'view_page_with_bottom_bar/view_page_with_bottom_bar.dart';
 import 'web_socket_channel/demo_state.dart';
@@ -716,6 +718,20 @@ class SecondRoute extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                         context, MaterialPageRoute(builder: (_) => GameOfLife()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('ImageCropCircleDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => ImageCropCircleDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('PhotoViewDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => PhotoViewDemo()));
                   },
                 ),
               ],
