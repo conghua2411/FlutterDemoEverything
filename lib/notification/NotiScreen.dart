@@ -31,9 +31,9 @@ class _NotiScreenState extends State<NotiScreen> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-            title: Text('noti click'),
-            content: Text('content: $payload'),
-          ),
+        title: Text('noti click'),
+        content: Text('content: $payload'),
+      ),
     );
   }
 
@@ -45,14 +45,14 @@ class _NotiScreenState extends State<NotiScreen> {
       ),
       body: Center(
         child: RaisedButton(
-          onPressed: showGroupNotification,
+          onPressed: showNotification,
           child: Text('notification'),
         ),
       ),
     );
   }
 
-  showNotificaton() async {
+  showNotification() async {
 //    if (Platform.isAndroid) {
 //      await platform.invokeMethod("showNotification");
 //    } else {
@@ -65,13 +65,33 @@ class _NotiScreenState extends State<NotiScreen> {
 //      );
 //    }
     var android = AndroidNotificationDetails(
-        'channel id', 'channel name', 'description',
-        priority: Priority.Max, importance: Importance.Max);
+      'channel id',
+      'channel name',
+      'description',
+//      priority: Priority.Max,
+//      importance: Importance.Max,
+    );
 
     var iOS = IOSNotificationDetails();
     var platform = NotificationDetails(android, iOS);
 
-    await flutterLocalNotificationsPlugin.show(0, 'title', 'body', platform, payload: 'this is payload');
+    DateTime dateTime = DateTime.now().add(Duration(seconds: 5));
+    print('now: ${DateTime.now()} -- lul: $dateTime}');
+
+    flutterLocalNotificationsPlugin
+        .schedule(
+      0,
+      'title',
+      'body',
+      dateTime,
+      platform,
+//      payload: 'this is payload',
+    )
+        .then((_) {
+      print('OKKKKK');
+    }, onError: (e) {
+      print('wtf dude: $e');
+    });
   }
 
   showGroupNotification() async {
@@ -81,42 +101,49 @@ class _NotiScreenState extends State<NotiScreen> {
     String groupDescription = "groupDescription";
 
     var androidFirst = AndroidNotificationDetails(
-      groupChannelId, groupChannelName, groupDescription,
-      importance: Importance.Max,
-      priority: Priority.High,
-      groupKey: groupKey
-    );
+        groupChannelId, groupChannelName, groupDescription,
+        importance: Importance.Max,
+        priority: Priority.High,
+        groupKey: groupKey);
 
     var notiDetailFirst = NotificationDetails(androidFirst, null);
 
-    await flutterLocalNotificationsPlugin.show(1, 'first', "first android", notiDetailFirst, payload: 'first payload');
+    await flutterLocalNotificationsPlugin.show(
+        1, 'first', "first android", notiDetailFirst,
+        payload: 'first payload');
 
     var androidSecond = AndroidNotificationDetails(
         groupChannelId, groupChannelName, groupDescription,
         importance: Importance.Max,
         priority: Priority.High,
-        groupKey: groupKey
-    );
+        groupKey: groupKey);
 
     var notiDetailSecond = NotificationDetails(androidSecond, null);
 
-    await flutterLocalNotificationsPlugin.show(2, 'second', "second android", notiDetailSecond, payload: 'second payload');
+    await flutterLocalNotificationsPlugin.show(
+        2, 'second', "second android", notiDetailSecond,
+        payload: 'second payload');
 
     List<String> lines = List<String>();
 
     lines.add('list first');
     lines.add('list second');
 
-    InboxStyleInformation inboxStyleInformation = InboxStyleInformation(lines, contentTitle: '2 new messages', summaryText: 'this is summary text');
+    InboxStyleInformation inboxStyleInformation = InboxStyleInformation(lines,
+        contentTitle: '2 new messages', summaryText: 'this is summary text');
 
-    AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(groupChannelId, groupChannelName, groupDescription,
-    style: AndroidNotificationStyle.Inbox,
-    styleInformation: inboxStyleInformation,
-    groupKey: groupKey,
-    setAsGroupSummary: true);
+    AndroidNotificationDetails androidNotificationDetails =
+        AndroidNotificationDetails(
+            groupChannelId, groupChannelName, groupDescription,
+            style: AndroidNotificationStyle.Inbox,
+            styleInformation: inboxStyleInformation,
+            groupKey: groupKey,
+            setAsGroupSummary: true);
 
-    NotificationDetails platformChannelSpecifics = NotificationDetails(androidNotificationDetails, null);
+    NotificationDetails platformChannelSpecifics =
+        NotificationDetails(androidNotificationDetails, null);
 
-    await flutterLocalNotificationsPlugin.show(3, 'attention', 'two new message', platformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+        3, 'attention', 'two new message', platformChannelSpecifics);
   }
 }

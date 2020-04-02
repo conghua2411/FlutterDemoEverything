@@ -9,7 +9,7 @@ class MyPaint extends CustomPainter {
 
   double state = -1;
 
-  MyPaint({this.state}): super();
+  MyPaint({this.state}) : super();
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -31,8 +31,8 @@ class MyPaint extends CustomPainter {
 //    var controlPoint1 = Offset(size.width / 4, size.height / 3);
 //    var controlPoint2 = Offset(3 * size.width / 4, 2 * size.height / 3);
 
-    var controlPoint1 = Offset(size.width / 2, size.height / 2 + 30*state);
-    var controlPoint2 = Offset(size.width / 2, size.height / 2 + 30*state);
+    var controlPoint1 = Offset(size.width / 2, size.height / 2 + 30 * state);
+    var controlPoint2 = Offset(size.width / 2, size.height / 2 + 30 * state);
 
     var endPoint = Offset(size.width, size.height / 2);
 

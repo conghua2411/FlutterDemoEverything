@@ -8,12 +8,14 @@ import 'package:flutter_app/gridView/GridScreen.dart';
 import 'package:flutter_app/listDemo/listView.dart';
 import 'package:flutter_app/notification/NotiScreen.dart';
 import 'package:flutter_app/pageSlide/PageSlideDemo.dart';
+import 'package:flutter_app/page_view_sistem_demo/page_view_sistem_demo.dart';
 import 'package:flutter_app/palette_generator_demo/palette_generator_demo.dart';
 import 'package:flutter_app/permission/permision_demo.dart';
 import 'package:flutter_app/reorder_tree_list/reorder_tree_list.dart';
 import 'package:flutter_app/resize_image_demo/resize_image_demo.dart';
 import 'package:flutter_app/shoppingCart/screen/cartList.dart';
 import 'package:flutter_app/sim_info_demo/sim_info_demo.dart';
+import 'package:flutter_app/sistem_schedule2/sistem_schedule2.dart';
 import 'package:flutter_app/sliding_setting_demo/sliding_setting_demo.dart';
 import 'package:flutter_app/sliver_demo/sliver_demo.dart';
 import 'package:flutter_app/snake/SnakeScreen.dart';
@@ -37,9 +39,13 @@ import 'package:flutter/services.dart';
 import 'animation/AnimationScreen.dart';
 import 'aws_cognito_dev_upload_s3/aws_cognito_dev_upload_s3.dart';
 import 'aws_cognito_prod/aws_cognito_prod.dart';
+import 'bottom_bar_demo/bottom_bar_demo.dart';
 import 'bottom_edit_view/bottom_edit_view.dart';
 import 'bottom_loadmore/bottom_loadmore_demo.dart';
 import 'bottom_sheet_keyboard/bottom_sheet_keyboard.dart';
+import 'calendar/list_calendar.dart';
+import 'calendar_view_demo/calendar_view_demo.dart';
+import 'camera_sistem/camera_sistem_demo.dart';
 import 'challenge_app_profile/challenge_app_profile_demo.dart';
 import 'cognito/CognitoScreen.dart';
 import 'column_demo/column_demo.dart';
@@ -47,7 +53,9 @@ import 'comment_ui_demo/comment_ui_demo.dart';
 import 'crypto_home_demo/crypto_home_demo.dart';
 import 'crypto_tooltip/crypto_tooltip.dart';
 import 'current_locale_demo/current_locale_demo.dart';
+import 'custom_bottom_calendar/custom_bottom_calendar.dart';
 import 'custom_list_quochuynh/custom_list_quochuynh.dart';
+import 'custom_painter_image/custom_painter_image.dart';
 import 'custom_profile/custom_profile_screen.dart';
 import 'deepLink/DeepLinkScreen.dart';
 import 'package:uni_links/uni_links.dart';
@@ -71,8 +79,12 @@ import 'load_json_demo/load_json_demo.dart';
 import 'local_file_demo/local_file_demo.dart';
 import 'local_sns_package_demo/local_sns_package_demo.dart';
 import 'open_wifi_setting_demo/open_wifi_setting_demo.dart';
+import 'photo_filter_demo/photo_filter_demo.dart';
 import 'photo_view_demo/photo_view_demo.dart';
+import 'reorder_list_demo/reorder_list_demo.dart';
 import 'rxDartDemo/RxDartDemo.dart';
+import 'sistem_schedule_demo/sistem_schedule_demo.dart';
+import 'ui_bottom_bar/ui_bottom_bar_demo.dart';
 import 'view_page_with_bottom_bar/view_page_with_bottom_bar.dart';
 import 'web_socket_channel/demo_state.dart';
 
@@ -89,6 +101,8 @@ Future<String> initUniLink() async {
 
 Future<void> main() async {
 
+  WidgetsFlutterBinding.ensureInitialized();
+
   // setup line ony once
 
 
@@ -103,6 +117,7 @@ Future<void> main() async {
   cameras = await availableCameras();
 
   runApp(MaterialApp(
+    theme: ThemeData(primaryColorBrightness: Brightness.dark),
     localizationsDelegates: [
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
@@ -193,6 +208,7 @@ class MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    print('ao123123412341234');
 //    _initPlatformState();
 
     // only on android
@@ -207,7 +223,7 @@ class MyAppState extends State<MyApp> {
     state.listen((data) {
       print('deep_link_native: success $data');
       if (data != 'startString is null') {
-        Navigator.of(context).push(SlideRightRoute(widget: AnimationScreen()));
+        Navigator.of(context).push(SlideRightRoute(widget: DeepLinkNativeDemo(url: data)));
       }
     }, onError: (e) {
       print('deep_link_native: error $e');
@@ -732,6 +748,90 @@ class SecondRoute extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                         context, MaterialPageRoute(builder: (_) => PhotoViewDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('CustomPainterImage'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => CustomPainterImage()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('ReOrderListDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => ReOrderListDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('CameraSistemDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => CameraSistemDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('PhotoFilterDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => PhotoFilterDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('BottomBarDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => BottomBarDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('SistemScheduleDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => SistemScheduleDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('CalendarViewDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => CalendarViewDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('UiBottomBarDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => UiBottomBarDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('SistemScheduleView2'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => SistemScheduleView()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('ListCalendarDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => ListCalendar()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('PageViewSistemDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => PageViewSistemDemo()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('CustomBottomCalendar'),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => CustomBottomCalendar()));
                   },
                 ),
               ],

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/animation/rolling/rolling_animation.dart';
 import 'package:flutter_app/animation/shake/shake_demo_screen.dart';
 import 'package:flutter_app/animation/slideButton/SlideButtonScreen.dart';
 
 import 'animated_list/animated_list_demo.dart';
 import 'bottomBox/BottomBox.dart';
+import 'click_effect/click_effect.dart';
 import 'fancyBackground/FancyBackgroundScreen.dart';
+import 'fireworks/fireworks.dart';
 import 'flip/flip_image_screen.dart';
 import 'hero/HeroCustomRoute.dart';
 import 'hero/HeroDemoScreen.dart';
@@ -37,6 +40,9 @@ class AnimationState extends State<AnimationScreen> {
     'AnimatedListDemo',
     'ListBuilderAnimatedDemo',
     'ImageDragPop',
+    'ClickEffect',
+    'Fireworks',
+    'Rolling',
   ];
 
   @override
@@ -128,6 +134,18 @@ class AnimationState extends State<AnimationScreen> {
       case 13:
         Navigator.push(
             context, MaterialPageRoute(builder: (_) => ImageDragPop()));
+        break;
+      case 14:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => ClickEffect()));
+        break;
+      case 15:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => Fireworks()));
+        break;
+      case 16:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => RollingAnimation()));
         break;
       default:
         break;

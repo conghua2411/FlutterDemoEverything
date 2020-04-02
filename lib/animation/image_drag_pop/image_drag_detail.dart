@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
 import 'dart:math';
 
@@ -31,6 +32,8 @@ class ImageDragDetailState extends State<ImageDragDetail>
 
   GlobalKey _keyImage = GlobalKey();
 
+  bool fullScreen = false;
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -53,6 +56,7 @@ class ImageDragDetailState extends State<ImageDragDetail>
 
   @override
   void dispose() {
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     currentDragOffsetStream.close();
     backAnimationController.dispose();
     bsOffsetRotate.close();
@@ -68,6 +72,16 @@ class ImageDragDetailState extends State<ImageDragDetail>
           child: Hero(
             tag: widget.heroImageTag,
             child: GestureDetector(
+              onTap: () {
+                fullScreen = !fullScreen;
+                if (fullScreen) {
+                  print('onTap: hide');
+                  SystemChrome.setEnabledSystemUIOverlays([]);
+                } else {
+                  print('onTap: show');
+                  SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+                }
+              },
               onPanStart: (detail) {
                 print(
                     'onPanStart: ${detail.localPosition} --- ${detail.globalPosition}');

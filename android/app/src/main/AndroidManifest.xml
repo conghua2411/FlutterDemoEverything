@@ -66,7 +66,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:scheme="poc"
-                    android:host="deeplink.flutter.dev" />
+                    android:host="deeplink.flutter.com" />
             </intent-filter>
 
             <!--firebase push notification-->

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class NoSignalDemo extends StatefulWidget {
   @override
@@ -59,9 +60,13 @@ class NoSignalState extends State<NoSignalDemo> with TickerProviderStateMixin {
     }
   }
 
+  bool isShow = false;
+
   @override
   void initState() {
     super.initState();
+
+    SystemChrome.setEnabledSystemUIOverlays([]);
 
     listNoSignal = List();
 
@@ -178,25 +183,35 @@ class NoSignalState extends State<NoSignalDemo> with TickerProviderStateMixin {
         left: listNoSignal[i].x,
         top: listNoSignal[i].y,
         child: Center(
-          child: Container(
+          child: GestureDetector(
+            onTap: () {
+              isShow = !isShow;
+              if (isShow) {
+                SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+              } else {
+                SystemChrome.setEnabledSystemUIOverlays([]);
+              }
+            },
+            child: Container(
 //            width: NoSignalContainerWidth - (listNoSignal.length - 1 - i) * 10,
 //            height: NoSignalContainerHeight - (listNoSignal.length - 1 - i) * 10,
-            width: NoSignalContainerWidth,
-            height: NoSignalContainerHeight,
-            child: Center(
-              child: Text(
-                i == listNoSignal.length - 1 ? 'No Signal' : '',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: containerColor,
+              width: NoSignalContainerWidth,
+              height: NoSignalContainerHeight,
+              child: Center(
+                child: Text(
+                  i == listNoSignal.length - 1 ? 'No Signal' : '',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: containerColor,
+                  ),
                 ),
               ),
-            ),
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: containerColor, width: 5),
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: containerColor, width: 5),
+              ),
             ),
           ),
         ),
