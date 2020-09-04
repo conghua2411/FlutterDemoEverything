@@ -9,7 +9,6 @@ import 'package:flutter_app/listDemo/listView.dart';
 import 'package:flutter_app/notification/NotiScreen.dart';
 import 'package:flutter_app/pageSlide/PageSlideDemo.dart';
 import 'package:flutter_app/page_view_sistem_demo/page_view_sistem_demo.dart';
-import 'package:flutter_app/palette_generator_demo/palette_generator_demo.dart';
 import 'package:flutter_app/permission/permision_demo.dart';
 import 'package:flutter_app/reorder_tree_list/reorder_tree_list.dart';
 import 'package:flutter_app/resize_image_demo/resize_image_demo.dart';
@@ -68,7 +67,6 @@ import 'draggable_demo/draggable_demo.dart';
 import 'firebase_messaging/firebase_messasing_demo.dart';
 import 'firebase_messaging/firebase_pref_data.dart';
 import 'floating_button_draggable/floating_button_draggable.dart';
-import 'flutter_sound/flutter_sound_screen.dart';
 import 'format_date_time/format_date_time_demo.dart';
 import 'game_of_life/game_of_life.dart';
 import 'image_crop_circle/image_crop_circle.dart';
@@ -416,13 +414,6 @@ class SecondRoute extends StatelessWidget {
                   },
                 ),
                 RaisedButton(
-                  child: Text("FlutterSound"),
-                  onPressed: () {
-                    Navigator.push(
-                        context, SlideRightRoute(widget: FlutterSoundScreen()));
-                  },
-                ),
-                RaisedButton(
                   child: Text("FlutterConnection"),
                   onPressed: () {
                     Navigator.push(
@@ -434,13 +425,6 @@ class SecondRoute extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                         context, SlideRightRoute(widget: UploadS3Screen()));
-                  },
-                ),
-                RaisedButton(
-                  child: Text("PaletteGenerator"),
-                  onPressed: () {
-                    Navigator.push(context,
-                        SlideRightRoute(widget: PaletteGeneratorDemo()));
                   },
                 ),
                 RaisedButton(

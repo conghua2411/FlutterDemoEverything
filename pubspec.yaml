@@ -42,10 +42,8 @@ dependencies:
   uni_links: ^0.2.0
   amazon_cognito_identity_dart: ^0.0.19
   rxdart: ^0.21.0
-  flutter_sound: ^1.4.2
   intl: ^0.16.0
   connectivity: ^0.4.3+5
-  palette_generator: ^0.2.0
   percent_indicator: ^2.1.1
   permission_handler: ^3.2.1+1
   location: ^2.3.5

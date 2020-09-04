@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class CustomSlideColorBar extends StatefulWidget {
@@ -69,7 +67,9 @@ class CustomThumb extends SliderComponentShape {
       RenderBox parentBox,
       SliderThemeData sliderTheme,
       TextDirection textDirection,
-      double value}) {
+      double value,
+      double textScaleFactor,
+      Size sizeWithOverflow}) {
     final Canvas canvas = context.canvas;
 
     final rect = Rect.fromCircle(center: center, radius: thumbRadius);
