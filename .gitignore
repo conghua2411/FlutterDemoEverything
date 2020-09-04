@@ -71,3 +71,12 @@
 .flutter-plugins-dependencies
 ios/Flutter/Flutter.podspec
 ios/Frameworks/
+.gradle/
+build.gradle
+gradle/
+gradlew
+gradlew.bat
+ios/Flutter/.last_build_id
+local.properties
+ios/Podfile.lock
+pubspec.lock
