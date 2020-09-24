@@ -38,7 +38,6 @@ dependencies:
   html: ^0.13.4
   scoped_model: ^1.0.1
   flutter_local_notifications: ^0.6.0
-  flame: ^0.16.1
   uni_links: ^0.2.0
   amazon_cognito_identity_dart: ^0.0.19
   rxdart: ^0.21.0
@@ -81,6 +80,8 @@ dependencies:
 
   flutter_calendar_carousel: ^1.4.11
 
+  flare_flutter: ^2.0.6
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -114,6 +115,8 @@ flutter:
    - assets/bg/hinh3.jpg
    - assets/json/en.json
    - assets/images/vietnam.png
+   - assets/flare/splash.flr
+   - assets/flare/mail_open.flr
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

@@ -6,6 +6,7 @@ import 'package:flutter_app/chat/chat.dart';
 import 'package:flutter_app/connection/connection_screen.dart';
 import 'package:flutter_app/gridView/GridScreen.dart';
 import 'package:flutter_app/listDemo/listView.dart';
+import 'package:flutter_app/list_dismissible/list_dismissible.dart';
 import 'package:flutter_app/notification/NotiScreen.dart';
 import 'package:flutter_app/pageSlide/PageSlideDemo.dart';
 import 'package:flutter_app/page_view_sistem_demo/page_view_sistem_demo.dart';
@@ -98,11 +99,9 @@ Future<String> initUniLink() async {
 }
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   // setup line ony once
-
 
 ////  set up line sdk only once - 1653555607
 //  await LineSDK.instance.setup('1653555607');
@@ -206,7 +205,6 @@ class MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    print('ao123123412341234');
 //    _initPlatformState();
 
     // only on android
@@ -221,7 +219,8 @@ class MyAppState extends State<MyApp> {
     state.listen((data) {
       print('deep_link_native: success $data');
       if (data != 'startString is null') {
-        Navigator.of(context).push(SlideRightRoute(widget: DeepLinkNativeDemo(url: data)));
+        Navigator.of(context)
+            .push(SlideRightRoute(widget: DeepLinkNativeDemo(url: data)));
       }
     }, onError: (e) {
       print('deep_link_native: error $e');
@@ -646,176 +645,207 @@ class SecondRoute extends StatelessWidget {
                 RaisedButton(
                   child: Text('ChallengeAppProfileDemo'),
                   onPressed: () {
-                    Navigator.push(
-                        context, SlideRightRoute(widget: ChallengeAppProfileDemo()));
+                    Navigator.push(context,
+                        SlideRightRoute(widget: ChallengeAppProfileDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('SocialLoginDemo'),
                   onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => SocialLoginDemo()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => SocialLoginDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('InstabugDemo'),
                   onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => InstabugDemo()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => InstabugDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('LocalFileDemo'),
                   onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => LocalFileDemo()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => LocalFileDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('FormatDateTimeDemo'),
                   onPressed: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => FormatDateTimeDemo()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => FormatDateTimeDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('FireBaseMessagingDemo'),
                   onPressed: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => FireBaseMessagingDemo()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => FireBaseMessagingDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('FirebasePrefData'),
                   onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => FirebasePrefData()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => FirebasePrefData()));
                   },
                 ),
                 RaisedButton(
                   child: Text('SocialLoginServiceDemo'),
                   onPressed: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => SocialLoginServiceDemo()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => SocialLoginServiceDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('LocalSnsPackageDemo'),
                   onPressed: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => LocalSnsPackageDemo()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => LocalSnsPackageDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('XiangqiGame'),
                   onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => XiangqiGame()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => XiangqiGame()));
                   },
                 ),
                 RaisedButton(
                   child: Text('GameOfLife'),
                   onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => GameOfLife()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => GameOfLife()));
                   },
                 ),
                 RaisedButton(
                   child: Text('ImageCropCircleDemo'),
                   onPressed: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => ImageCropCircleDemo()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => ImageCropCircleDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('PhotoViewDemo'),
                   onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => PhotoViewDemo()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => PhotoViewDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('CustomPainterImage'),
                   onPressed: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => CustomPainterImage()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => CustomPainterImage()));
                   },
                 ),
                 RaisedButton(
                   child: Text('ReOrderListDemo'),
                   onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => ReOrderListDemo()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => ReOrderListDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('CameraSistemDemo'),
                   onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => CameraSistemDemo()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => CameraSistemDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('PhotoFilterDemo'),
                   onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => PhotoFilterDemo()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => PhotoFilterDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('BottomBarDemo'),
                   onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => BottomBarDemo()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => BottomBarDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('SistemScheduleDemo'),
                   onPressed: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => SistemScheduleDemo()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => SistemScheduleDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('CalendarViewDemo'),
                   onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => CalendarViewDemo()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => CalendarViewDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('UiBottomBarDemo'),
                   onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => UiBottomBarDemo()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => UiBottomBarDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('SistemScheduleView2'),
                   onPressed: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => SistemScheduleView()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => SistemScheduleView()));
                   },
                 ),
                 RaisedButton(
                   child: Text('ListCalendarDemo'),
                   onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => ListCalendar()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => ListCalendar()));
                   },
                 ),
                 RaisedButton(
                   child: Text('PageViewSistemDemo'),
                   onPressed: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => PageViewSistemDemo()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => PageViewSistemDemo()));
                   },
                 ),
                 RaisedButton(
                   child: Text('CustomBottomCalendar'),
                   onPressed: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => CustomBottomCalendar()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => CustomBottomCalendar()));
+                  },
+                ),
+                RaisedButton(
+                  child: Text('ListDismissible'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ListDismissibleView(),
+                      ),
+                    );
                   },
                 ),
               ],

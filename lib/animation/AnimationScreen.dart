@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/animation/flare/list_flare.dart';
 import 'package:flutter_app/animation/rolling/rolling_animation.dart';
 import 'package:flutter_app/animation/shake/shake_demo_screen.dart';
 import 'package:flutter_app/animation/slideButton/SlideButtonScreen.dart';
@@ -43,6 +44,7 @@ class AnimationState extends State<AnimationScreen> {
     'ClickEffect',
     'Fireworks',
     'Rolling',
+    'Flare',
   ];
 
   @override
@@ -58,18 +60,21 @@ class AnimationState extends State<AnimationScreen> {
             itemBuilder: (buildContext, index) {
               return Container(
                 height: 50,
-                color: Colors.amber[(index % 9 +1) * 100],
+                color: Colors.amber[(index % 9 + 1) * 100],
                 child: Center(
                   child: FlatButton(
-                      onPressed: () => gotoAnimation(context, index),
-                      child: Hero(
-                          tag: 'heroTest-$index',
-                          child: Material(
-                              child: Text(
-                                listAnimation[index],
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              color: Colors.transparent))),
+                    onPressed: () => gotoAnimation(context, index),
+                    child: Hero(
+                      tag: 'heroTest-$index',
+                      child: Material(
+                        child: Text(
+                          listAnimation[index],
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        color: Colors.transparent,
+                      ),
+                    ),
+                  ),
                 ),
               );
             }),
@@ -116,8 +121,7 @@ class AnimationState extends State<AnimationScreen> {
             context, MaterialPageRoute(builder: (_) => PlayBtnAnimationDemo()));
         break;
       case 9:
-        Navigator.push(
-            context, HeroCustomRoute(widget: ImageHeroDemo()));
+        Navigator.push(context, HeroCustomRoute(widget: ImageHeroDemo()));
         break;
       case 10:
         Navigator.push(
@@ -128,8 +132,8 @@ class AnimationState extends State<AnimationScreen> {
             context, MaterialPageRoute(builder: (_) => AnimatedListDemo()));
         break;
       case 12:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => ListBuilderAnimatedDemo()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => ListBuilderAnimatedDemo()));
         break;
       case 13:
         Navigator.push(
@@ -140,12 +144,15 @@ class AnimationState extends State<AnimationScreen> {
             context, MaterialPageRoute(builder: (_) => ClickEffect()));
         break;
       case 15:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => Fireworks()));
+        Navigator.push(context, MaterialPageRoute(builder: (_) => Fireworks()));
         break;
       case 16:
         Navigator.push(
             context, MaterialPageRoute(builder: (_) => RollingAnimation()));
+        break;
+      case 17:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => ListFlareView()));
         break;
       default:
         break;
