@@ -79,7 +79,8 @@ class ImageDragDetailState extends State<ImageDragDetail>
                   SystemChrome.setEnabledSystemUIOverlays([]);
                 } else {
                   print('onTap: show');
-                  SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+                  SystemChrome.setEnabledSystemUIOverlays(
+                      SystemUiOverlay.values);
                 }
               },
               onPanStart: (detail) {
@@ -110,7 +111,33 @@ class ImageDragDetailState extends State<ImageDragDetail>
                 if (detail.velocity.pixelsPerSecond.dx.abs() +
                         detail.velocity.pixelsPerSecond.dy.abs() >
                     200) {
-                  Navigator.of(context).pop();
+                  Future.delayed(Duration(seconds: 1), () {
+                    Navigator.of(context).pop();
+                  });
+
+                  print(
+                      'currentDragOffsetStream.value.dx: ${currentDragOffsetStream.value.dx}\ncurrentDragOffsetStream.value.dy: ${currentDragOffsetStream.value.dy}');
+                  print(
+                      'detail.velocity.pixelsPerSecond.dx: ${detail.velocity.pixelsPerSecond.dx}\ndetail.velocity.pixelsPerSecond.dy: ${detail.velocity.pixelsPerSecond.dy}');
+
+                  backAnimationController.duration = Duration(seconds: 1);
+
+                  backAnimation = Tween<Offset>(
+                    begin: currentDragOffsetStream.value,
+                    end: Offset(
+                      currentDragOffsetStream.value.dx +
+                          detail.velocity.pixelsPerSecond.dx,
+                      currentDragOffsetStream.value.dy +
+                          detail.velocity.pixelsPerSecond.dy,
+                    ),
+                  ).animate(
+                    CurvedAnimation(
+                      parent: backAnimationController,
+                      curve: Curves.linear,
+                    ),
+                  );
+                  backAnimationController.forward(from: 0);
+                  bsOffsetRotate.add(null);
 
 //                  for (int i = 0 ; i < 10 ; i++) {
 //                    currentDragOffsetStream.add(Offset(
@@ -248,24 +275,25 @@ class ImageDragDetailState extends State<ImageDragDetail>
         return 0;
       }
 
-      double angleWidth = (startDragOffset.dy < MediaQuery.of(context).size.height / 2
-          ? 1
-          : -1) *
-          newOffset.dx /
-          imageSize.width;
+      double angleWidth =
+          (startDragOffset.dy < MediaQuery.of(context).size.height / 2
+                  ? 1
+                  : -1) *
+              newOffset.dx /
+              imageSize.width;
 
       print('angleWidth: $angleWidth');
 
-      double angleHeight = (startDragOffset.dx < MediaQuery.of(context).size.width / 2
-          ? -1
-          : 1) *
-          newOffset.dy /
-          imageSize.height;
+      double angleHeight =
+          (startDragOffset.dx < MediaQuery.of(context).size.width / 2
+                  ? -1
+                  : 1) *
+              newOffset.dy /
+              imageSize.height;
 
       print('angleHeight: $angleHeight');
 
-      return ((angleHeight + angleWidth) *
-          (pi / 4));
+      return ((angleHeight + angleWidth) * (pi / 4));
 
 //      return (newOffset.dy/MediaQuery.of(context).size.height * (pi/4));
 //      return (-newOffset.dy/MediaQuery.of(context).size.height * (pi/4));

@@ -2,25 +2,24 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/chat/chat.dart';
 import 'package:flutter_app/connection/connection_screen.dart';
+import 'package:flutter_app/custom_drop_down/custom_drop_down.dart';
+import 'package:flutter_app/custom_text_field_view/custom_text_field_view.dart';
 import 'package:flutter_app/gridView/GridScreen.dart';
+import 'package:flutter_app/inventis_filter/inventis_filter.dart';
 import 'package:flutter_app/listDemo/listView.dart';
 import 'package:flutter_app/list_dismissible/list_dismissible.dart';
+import 'package:flutter_app/navite_view/native_view.dart';
 import 'package:flutter_app/notification/NotiScreen.dart';
 import 'package:flutter_app/pageSlide/PageSlideDemo.dart';
 import 'package:flutter_app/page_view_sistem_demo/page_view_sistem_demo.dart';
 import 'package:flutter_app/permission/permision_demo.dart';
 import 'package:flutter_app/reorder_tree_list/reorder_tree_list.dart';
 import 'package:flutter_app/resize_image_demo/resize_image_demo.dart';
-import 'package:flutter_app/shoppingCart/screen/cartList.dart';
 import 'package:flutter_app/sim_info_demo/sim_info_demo.dart';
 import 'package:flutter_app/sistem_schedule2/sistem_schedule2.dart';
 import 'package:flutter_app/sliding_setting_demo/sliding_setting_demo.dart';
 import 'package:flutter_app/sliver_demo/sliver_demo.dart';
-import 'package:flutter_app/snake/SnakeScreen.dart';
-import 'package:flutter_app/social_login/social_login_demo.dart';
-import 'package:flutter_app/social_login/social_login_service_demo.dart';
 import 'package:flutter_app/socket/SocketDemo.dart';
 import 'package:flutter_app/ticTacToe/TicTacToe.dart';
 import 'package:flutter_app/tooltip/super_tooltip_demo.dart';
@@ -28,20 +27,18 @@ import 'package:flutter_app/transition/ScaleTransition.dart';
 import 'package:flutter_app/transition/SlideTransition.dart';
 import 'package:flutter_app/uploadS3/upload_s3_screen.dart';
 import 'package:flutter_app/viewPager/ViewPager.dart';
-import 'package:flutter_app/widgetDemo/memrise.dart';
 import 'package:flutter_app/wifi_info_demo/wifi_info_demo.dart';
 import 'package:flutter_app/xiangqi_game/xiangqui_game.dart';
-import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/services.dart';
+import 'package:inventis_my_sales/inventis_my_sales.dart';
 import 'animation/AnimationScreen.dart';
 import 'aws_cognito_dev_upload_s3/aws_cognito_dev_upload_s3.dart';
 import 'aws_cognito_prod/aws_cognito_prod.dart';
 import 'bottom_bar_demo/bottom_bar_demo.dart';
 import 'bottom_edit_view/bottom_edit_view.dart';
-import 'bottom_loadmore/bottom_loadmore_demo.dart';
 import 'bottom_sheet_keyboard/bottom_sheet_keyboard.dart';
 import 'calendar/list_calendar.dart';
 import 'calendar_view_demo/calendar_view_demo.dart';
@@ -65,19 +62,14 @@ import 'demoAHung/DemoAHung.dart';
 import 'demoAHung/ListExpandDemo.dart';
 import 'device_info_demo/device_info_demo.dart';
 import 'draggable_demo/draggable_demo.dart';
-import 'firebase_messaging/firebase_messasing_demo.dart';
-import 'firebase_messaging/firebase_pref_data.dart';
 import 'floating_button_draggable/floating_button_draggable.dart';
 import 'format_date_time/format_date_time_demo.dart';
 import 'game_of_life/game_of_life.dart';
 import 'image_crop_circle/image_crop_circle.dart';
-import 'instabug_demo/instabug_demo.dart';
 import 'keyboard_initstate.dart';
 import 'language_demo/language_demo.dart';
 import 'load_json_demo/load_json_demo.dart';
 import 'local_file_demo/local_file_demo.dart';
-import 'local_sns_package_demo/local_sns_package_demo.dart';
-import 'open_wifi_setting_demo/open_wifi_setting_demo.dart';
 import 'photo_filter_demo/photo_filter_demo.dart';
 import 'photo_view_demo/photo_view_demo.dart';
 import 'reorder_list_demo/reorder_list_demo.dart';
@@ -93,8 +85,10 @@ Future<String> initUniLink() async {
   try {
     String initialLink = await getInitialLink();
     print('initialLink: $initialLink');
+    return 'initialLink';
   } on PlatformException {
     print('initialLink: error ');
+    throw ('initialLink: error');
   }
 }
 
@@ -323,37 +317,10 @@ class SecondRoute extends StatelessWidget {
                   },
                 ),
                 RaisedButton(
-                  child: Text("shoppingCart"),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyCartList()));
-                  },
-                ),
-                RaisedButton(
-                  child: Text("memrise"),
-                  onPressed: () {
-                    Navigator.push(context, SlideRightRoute(widget: Memrise()));
-                  },
-                ),
-                RaisedButton(
-                  child: Text("chat"),
-                  onPressed: () {
-                    Navigator.push(
-                        context, SlideRightRoute(widget: ChatScreen()));
-                  },
-                ),
-                RaisedButton(
                   child: Text("tictactoe"),
                   onPressed: () {
                     Navigator.push(
                         context, SlideRightRoute(widget: TicTacToe()));
-                  },
-                ),
-                RaisedButton(
-                  child: Text("snake"),
-                  onPressed: () {
-                    Navigator.push(
-                        context, SlideRightRoute(widget: SnakeScreen()));
                   },
                 ),
                 RaisedButton(
@@ -459,13 +426,6 @@ class SecondRoute extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(context,
                         SlideRightRoute(widget: CustomProfileScreen()));
-                  },
-                ),
-                RaisedButton(
-                  child: Text("BottomLoadMoreDemo"),
-                  onPressed: () {
-                    Navigator.push(
-                        context, SlideRightRoute(widget: BottomLoadMoreDemo()));
                   },
                 ),
                 RaisedButton(
@@ -628,13 +588,6 @@ class SecondRoute extends StatelessWidget {
                         context, SlideRightRoute(widget: SimInfoDemo()));
                   },
                 ),
-//                RaisedButton(
-//                  child: Text('OpenWifiSettingDemo'),
-//                  onPressed: () {
-//                    Navigator.push(
-//                        context, SlideRightRoute(widget: OpenWifiSettingDemo()));
-//                  },
-//                ),
                 RaisedButton(
                   child: Text('ResizeImageDemo'),
                   onPressed: () {
@@ -650,20 +603,6 @@ class SecondRoute extends StatelessWidget {
                   },
                 ),
                 RaisedButton(
-                  child: Text('SocialLoginDemo'),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => SocialLoginDemo()));
-                  },
-                ),
-                RaisedButton(
-                  child: Text('InstabugDemo'),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => InstabugDemo()));
-                  },
-                ),
-                RaisedButton(
                   child: Text('LocalFileDemo'),
                   onPressed: () {
                     Navigator.push(context,
@@ -674,43 +613,11 @@ class SecondRoute extends StatelessWidget {
                   child: Text('FormatDateTimeDemo'),
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => FormatDateTimeDemo()));
-                  },
-                ),
-                RaisedButton(
-                  child: Text('FireBaseMessagingDemo'),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => FireBaseMessagingDemo()));
-                  },
-                ),
-                RaisedButton(
-                  child: Text('FirebasePrefData'),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => FirebasePrefData()));
-                  },
-                ),
-                RaisedButton(
-                  child: Text('SocialLoginServiceDemo'),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => SocialLoginServiceDemo()));
-                  },
-                ),
-                RaisedButton(
-                  child: Text('LocalSnsPackageDemo'),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => LocalSnsPackageDemo()));
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => FormatDateTimeDemo(),
+                      ),
+                    );
                   },
                 ),
                 RaisedButton(
@@ -844,6 +751,61 @@ class SecondRoute extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (_) => ListDismissibleView(),
+                      ),
+                    );
+                  },
+                ),
+                RaisedButton(
+                  child: Text('NativeView'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => NativeView(),
+                      ),
+                    );
+                  },
+                ),
+                RaisedButton(
+                  child: Text('InventisFilter'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => InventisFilter(),
+                      ),
+                    );
+                  },
+                ),
+                RaisedButton(
+                  child: Text('InventisMySale'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => InventisMySale(),
+                      ),
+                    );
+                  },
+                ),
+                RaisedButton(
+                  child: Text('CustomDropDown'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => CustomDropDown(),
+                      ),
+                    );
+                  },
+                ),
+                RaisedButton(
+                  child: Text('CustomTextFieldView'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => CustomTextFieldView(),
                       ),
                     );
                   },
