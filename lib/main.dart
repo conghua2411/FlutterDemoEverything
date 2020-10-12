@@ -119,6 +119,14 @@ Future<void> main() async {
       const Locale('ko', 'KO'),
       const Locale('vi', 'VI'),
     ],
+
+    /// uncommend this so font size never change
+//    builder: (context, child) {
+//      return MediaQuery(
+//        child: child,
+//        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+//      );
+//    },
     title: 'navigation',
     home: MyApp(),
     initialRoute: '/',

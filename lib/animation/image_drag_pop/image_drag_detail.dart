@@ -48,7 +48,10 @@ class ImageDragDetailState extends State<ImageDragDetail>
     backAnimationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500))
           ..addListener(() {
-            currentDragOffsetStream?.add(backAnimation.value);
+            if (currentDragOffsetStream != null &&
+                !currentDragOffsetStream.isClosed) {
+              currentDragOffsetStream?.add(backAnimation.value);
+            }
           });
 
     bsOffsetRotate = BehaviorSubject();
