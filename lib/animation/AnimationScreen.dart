@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/animation/flare/list_flare.dart';
+import 'package:flutter_app/animation/funky_transition/funky_transition.dart';
 import 'package:flutter_app/animation/rolling/rolling_animation.dart';
 import 'package:flutter_app/animation/shake/shake_demo_screen.dart';
 import 'package:flutter_app/animation/slideButton/SlideButtonScreen.dart';
@@ -45,6 +46,7 @@ class AnimationState extends State<AnimationScreen> {
     'Fireworks',
     'Rolling',
     'Flare',
+    'FunkyTransition'
   ];
 
   @override
@@ -56,28 +58,29 @@ class AnimationState extends State<AnimationScreen> {
       body: Container(
         color: Colors.amber,
         child: ListView.builder(
-            itemCount: listAnimation.length,
-            itemBuilder: (buildContext, index) {
-              return Container(
-                height: 50,
-                color: Colors.amber[(index % 9 + 1) * 100],
-                child: Center(
-                  child: FlatButton(
-                    onPressed: () => gotoAnimation(context, index),
-                    child: Hero(
-                      tag: 'heroTest-$index',
-                      child: Material(
-                        child: Text(
-                          listAnimation[index],
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        color: Colors.transparent,
+          itemCount: listAnimation.length,
+          itemBuilder: (buildContext, index) {
+            return Container(
+              height: 50,
+              color: Colors.amber[(index % 9 + 1) * 100],
+              child: Center(
+                child: FlatButton(
+                  onPressed: () => gotoAnimation(context, index),
+                  child: Hero(
+                    tag: 'heroTest-$index',
+                    child: Material(
+                      child: Text(
+                        listAnimation[index],
+                        style: TextStyle(fontSize: 20),
                       ),
+                      color: Colors.transparent,
                     ),
                   ),
                 ),
-              );
-            }),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -153,6 +156,10 @@ class AnimationState extends State<AnimationScreen> {
       case 17:
         Navigator.push(
             context, MaterialPageRoute(builder: (_) => ListFlareView()));
+        break;
+      case 18:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => FunkyTransitionView()));
         break;
       default:
         break;
