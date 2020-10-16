@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/animation/funky_transition/funky_route.dart';
 
@@ -63,15 +64,28 @@ class _FunkyKyKyState extends State<FunkyKyKy> {
               color: Colors.primaries[Random().nextInt(10) + 1],
               height: MediaQuery.of(context).size.height * 2 / 3,
               width: MediaQuery.of(context).size.width * 2 / 3,
-              child: Center(
-                child: Text(
-                  'F U N K Y',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: FlareActor(
+                      'assets/flare/splash.flr',
+                      animation: 'splash',
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
+                  Center(
+                    child: Text(
+                      'F U N K Y',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
