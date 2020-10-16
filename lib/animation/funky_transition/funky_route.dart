@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FunkyRoute extends PageRouteBuilder {
-  static int funkyCount = 8;
+  static int funkyCount = 9;
 
   final Widget widget;
   final int type;
@@ -99,6 +99,17 @@ class FunkyRoute extends PageRouteBuilder {
                 );
               case 7:
                 return FunkyTransition8(
+                  funky: Tween<double>(begin: 0.0, end: 1.0).animate(
+                    CurvedAnimation(
+                      parent: animation,
+                      curve: Curves.linear,
+                      reverseCurve: Curves.linear,
+                    ),
+                  ),
+                  child: widget,
+                );
+              case 8:
+                return FunkyTransition9(
                   funky: Tween<double>(begin: 0.0, end: 1.0).animate(
                     CurvedAnimation(
                       parent: animation,
@@ -419,6 +430,31 @@ class FunkyTransition8 extends AnimatedWidget {
         0,
         -MediaQuery.of(context).size.height * (1 - funkyValue),
       ),
+      child: child,
+    );
+  }
+}
+
+/// 9
+class FunkyTransition9 extends AnimatedWidget {
+  FunkyTransition9({
+    Key key,
+    @required Animation<double> funky,
+    this.alignment = Alignment.center,
+    this.child,
+  })  : assert(funky != null),
+        super(key: key, listenable: funky);
+
+  Animation<double> get funky => listenable;
+
+  final Alignment alignment;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final double funkyValue = funky.value;
+    return Opacity(
+      opacity: funkyValue,
       child: child,
     );
   }
