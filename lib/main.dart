@@ -7,6 +7,7 @@ import 'package:flutter_app/custom_drop_down/custom_drop_down.dart';
 import 'package:flutter_app/custom_text_field_view/custom_text_field_view.dart';
 import 'package:flutter_app/gridView/GridScreen.dart';
 import 'package:flutter_app/inventis_filter/inventis_filter.dart';
+import 'package:flutter_app/json_serializable_demo/json_serializable_demo.dart';
 import 'package:flutter_app/listDemo/listView.dart';
 import 'package:flutter_app/list_dismissible/list_dismissible.dart';
 import 'package:flutter_app/navite_view/native_view.dart';
@@ -826,6 +827,17 @@ class SecondRoute extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (_) => ProviderDemo(),
+                      ),
+                    );
+                  },
+                ),
+                RaisedButton(
+                  child: Text('JsonSerializableDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => JsonSerializableDemo(),
                       ),
                     );
                   },
