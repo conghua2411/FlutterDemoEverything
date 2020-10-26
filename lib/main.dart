@@ -14,6 +14,7 @@ import 'package:flutter_app/notification/NotiScreen.dart';
 import 'package:flutter_app/pageSlide/PageSlideDemo.dart';
 import 'package:flutter_app/page_view_sistem_demo/page_view_sistem_demo.dart';
 import 'package:flutter_app/permission/permision_demo.dart';
+import 'package:flutter_app/provider/provider_screen.dart';
 import 'package:flutter_app/reorder_tree_list/reorder_tree_list.dart';
 import 'package:flutter_app/resize_image_demo/resize_image_demo.dart';
 import 'package:flutter_app/sim_info_demo/sim_info_demo.dart';
@@ -814,6 +815,17 @@ class SecondRoute extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (_) => CustomTextFieldView(),
+                      ),
+                    );
+                  },
+                ),
+                RaisedButton(
+                  child: Text('ProviderDemo'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ProviderDemo(),
                       ),
                     );
                   },
