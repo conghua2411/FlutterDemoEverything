@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+/// add this
 part 'json_serializable_demo.g.dart';
+
+/// add this to dependencies:
+///
+/// json_serializable: ^3.5.0
+/// json_annotation: ^3.0.0
+
+/// add this to dev_dependencies:
+///
+///  build_runner: ^1.0.0
+///  json_serializable: ^3.5.0
+
+/// to generate file
+/// run "flutter packages pub run build_runner build" in terminal
+
 
 class JsonSerializableDemo extends StatefulWidget {
   @override
