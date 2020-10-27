@@ -358,11 +358,32 @@ class _CalendarViewState extends State<CalendarView> {
             ),
           ),
         ),
-        Text(
-          '${current.month}-${current.year}',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+        InkWell(
+          borderRadius: BorderRadius.circular(8),
+          onTap: () {
+            showDatePicker(
+                    context: context,
+                    initialDate: _currentMonth,
+                    firstDate: DateTime(_currentMonth.year - 50),
+                    lastDate: DateTime(_currentMonth.year + 50))
+                .then((date) {
+                  if (date != null) {
+                    setState(() {
+                      _currentMonth = DateTime(date.year, date.month);
+                      calDate(_currentMonth);
+                    });
+                  }
+            });
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              '${current.month}-${current.year}',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         InkWell(
