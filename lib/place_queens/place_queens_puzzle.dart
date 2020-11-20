@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+const int SIZE = 8;
+
 class PlaceQueensPuzzle extends StatefulWidget {
   @override
   _PlaceQueensPuzzleState createState() => _PlaceQueensPuzzleState();
@@ -20,7 +22,11 @@ class _PlaceQueensPuzzleState extends State<PlaceQueensPuzzle> {
 
     Calculate8Queen.cal2(listQueen, r: list8Queen);
 
-    print('r: ${list8Queen.length}');
+    print('length: ${list8Queen.length}');
+
+    list8Queen.forEach((element) {
+      print('--: $element');
+    });
 
     listQueen = list8Queen[current];
   }
@@ -70,11 +76,11 @@ class _PlaceQueensPuzzleState extends State<PlaceQueensPuzzle> {
 
   Widget _board() {
     double boardSize = min(
-      MediaQuery.of(context).size.width / 8,
-      MediaQuery.of(context).size.height / 8,
+      MediaQuery.of(context).size.width / SIZE,
+      MediaQuery.of(context).size.height / SIZE,
     );
 
-    List<Widget> board = List.generate(8, (index) {
+    List<Widget> board = List.generate(SIZE, (index) {
       return _buildRowBoard(index, boardSize);
     });
 
@@ -87,7 +93,7 @@ class _PlaceQueensPuzzleState extends State<PlaceQueensPuzzle> {
   Widget _buildRowBoard(int colIndex, double size) {
     List<Widget> widgets = [];
 
-    widgets = List.generate(8, (rowIndex) {
+    widgets = List.generate(SIZE, (rowIndex) {
       return Container(
         width: size,
         height: size,
@@ -169,7 +175,7 @@ class _PlaceQueensPuzzleState extends State<PlaceQueensPuzzle> {
   }
 
   List<Queen> _changeList8Queen() {
-    return list8Queen[(++current)%list8Queen.length];
+    return list8Queen[(++current) % list8Queen.length];
   }
 }
 
@@ -179,14 +185,14 @@ class Calculate8Queen {
     int index = 0,
     List<List<Queen>> r,
   }) {
-    if (index > 7) {
-      if (list.length == 8) {
+    if (index > SIZE - 1) {
+      if (list.length == SIZE) {
         r.add(list);
       }
       return;
     }
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < SIZE; i++) {
       if (!isInListQueenWay(index, i, list)) {
         List<Queen> l = Queen.cloneList(list);
 
@@ -199,34 +205,6 @@ class Calculate8Queen {
         );
       }
     }
-  }
-
-  static List<Queen> cal(
-    List<Queen> list, {
-    int index = 0,
-  }) {
-    print('list: ${list.length} --- index: $index');
-    if (index == 7) {
-      return list;
-    }
-
-    for (int i = 0; i < 8; i++) {
-      if (index == 0) {
-        print('index: $index --- i: $i --- ${list.length}');
-      }
-      if (!isInListQueenWay(index, i, list)) {
-        print('choose index: $index --- i: $i');
-
-        List<Queen> l = Queen.cloneList(list);
-
-        l.add(Queen(x: index, y: i));
-        if (cal(list, index: index + 1).length == 8) {
-          return list;
-        }
-      }
-    }
-
-    return list;
   }
 
   static bool isInListQueenWay(int x, int y, List<Queen> list) {
@@ -271,7 +249,7 @@ class Queen {
 
   @override
   String toString() {
-    return 'Q(${x + 1}, ${y + 1})';
+    return '[$x, $y]';
   }
 
   @override
