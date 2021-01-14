@@ -250,8 +250,6 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    FocusScope.of(context).requestFocus(new FocusNode());
-
     return Scaffold(
       appBar: AppBar(
         title: Text("first my app"),
