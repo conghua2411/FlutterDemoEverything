@@ -1,34 +1,34 @@
 package kr.co.lecle.flutter_app_demo
 
+
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
-import android.os.Bundle
+import android.os.Environment
+import android.os.Environment.*
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.googlecode.tesseract.android.TessBaseAPI
-
-import io.flutter.app.FlutterActivity
-import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugins.GeneratedPluginRegistrant
-import java.io.File
-import android.net.Uri
-import android.os.Environment
-import io.flutter.plugin.common.EventChannel
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.PublishSubject
-import com.amazonaws.mobile.client.UserStateDetails
 import com.amazonaws.mobile.client.AWSMobileClient
 import com.amazonaws.mobile.client.Callback
 import com.amazonaws.mobile.client.UserState
+import com.amazonaws.mobile.client.UserStateDetails
 import com.amazonaws.mobile.client.results.SignInResult
 import com.amazonaws.mobileconnectors.s3.transferutility.*
 import com.amazonaws.services.s3.AmazonS3Client
-import java.lang.Exception
-
+import com.googlecode.tesseract.android.TessBaseAPI
+import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugin.common.EventChannel
+import io.flutter.plugin.common.MethodCall
+import io.flutter.plugin.common.MethodChannel
+import io.flutter.plugins.GeneratedPluginRegistrant
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.PublishSubject
+import java.io.File
 
 class MainActivity : FlutterActivity() {
 
@@ -49,42 +49,43 @@ class MainActivity : FlutterActivity() {
 
     var linksReceiver: BroadcastReceiver? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         val channel = "com.example.flutter_app/main"
         val STREAM = "com.example.flutter_app/main"
 
-        super.onCreate(savedInstanceState)
-        GeneratedPluginRegistrant.registerWith(this)
+        GeneratedPluginRegistrant.registerWith(flutterEngine)
 
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, deepLinkChannel).setMethodCallHandler { call, result ->
+            Log.d("asd", "asdasdasd")
+        }
         // deep link native
         val intent: Intent = intent
 
         val data: Uri? = intent.data
 
-        MethodChannel(flutterView, deepLinkChannel).setMethodCallHandler { call, result ->
-            if (call.method == "initialLink") {
-                if (startString != null) {
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, deepLinkChannel).setMethodCallHandler(object : MethodChannel.MethodCallHandler {
+            override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+                if (call.method == "initialLink") {
                     result.success(startString)
                 } else {
                     result.success("startString is null")
                 }
             }
-        }
+        })
 
         if (data != null) {
             startString = data.toString()
         }
 
-        EventChannel(flutterView, EVENTS).setStreamHandler(object: EventChannel.StreamHandler {
-            override fun onListen(args: Any?, events: EventChannel.EventSink?) {
+        EventChannel(flutterEngine.dartExecutor.binaryMessenger, EVENTS).setStreamHandler(object : EventChannel.StreamHandler {
+            override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
                 Log.d("DeepLink", "setup onListen")
                 if (linksReceiver == null) {
                     linksReceiver = createChangeReceiver(events)
                 }
             }
 
-            override fun onCancel(args: Any?) {
+            override fun onCancel(arguments: Any?) {
                 Log.d("DeepLink", "setup onCancel")
                 linksReceiver = null
             }
@@ -111,7 +112,7 @@ class MainActivity : FlutterActivity() {
 
         ocrApi = TessBaseAPI()
 
-        MethodChannel(flutterView, channel).setMethodCallHandler { call, result ->
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, channel).setMethodCallHandler { call, result ->
             when (call.method) {
                 "sayHello" -> {
                     result.success(sayHello())
@@ -166,7 +167,7 @@ class MainActivity : FlutterActivity() {
 //                }
 //        )
     }
-
+    
     private fun signOutCognito() {
         AWSMobileClient.getInstance().signOut()
     }
@@ -229,7 +230,7 @@ class MainActivity : FlutterActivity() {
         val uploadObserver =
                 transferUtility.upload(
                         "protected/${AWSMobileClient.getInstance().identityId}/abc123123.jpg",
-                        File("${Environment.getExternalStorageDirectory().path}/Pictures/1536807835610.jpg")
+                        File("${getExternalStorageDirectory().path}/Pictures/1536807835610.jpg")
 //                        File("${Environment.getExternalStorageDirectory().path}/Pictures/Screenshots/abc.png")
                 )
         uploadObserver.setTransferListener(object : TransferListener {
@@ -268,7 +269,7 @@ class MainActivity : FlutterActivity() {
 
         setIntent(intent)
 
-        if(intent.action == Intent.ACTION_VIEW && linksReceiver != null) {
+        if (intent.action == Intent.ACTION_VIEW && linksReceiver != null) {
             linksReceiver?.onReceive(this.applicationContext, intent)
         }
     }
@@ -306,7 +307,7 @@ class MainActivity : FlutterActivity() {
             Log.d("deepLink", "hello: ${newIntent.data}")
 
             // test deep link 2
-            if(newIntent.action == Intent.ACTION_VIEW && linksReceiver != null) {
+            if (newIntent.action == Intent.ACTION_VIEW && linksReceiver != null) {
                 linksReceiver?.onReceive(this.applicationContext, newIntent)
             }
 

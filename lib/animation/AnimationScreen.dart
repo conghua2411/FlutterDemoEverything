@@ -4,6 +4,7 @@ import 'package:flutter_app/animation/funky_transition/funky_transition.dart';
 import 'package:flutter_app/animation/rolling/rolling_animation.dart';
 import 'package:flutter_app/animation/shake/shake_demo_screen.dart';
 import 'package:flutter_app/animation/slideButton/SlideButtonScreen.dart';
+import 'package:flutter_app/animation/weird_text_field/weird_text_field.dart';
 
 import 'animated_list/animated_list_demo.dart';
 import 'bottomBox/BottomBox.dart';
@@ -46,7 +47,8 @@ class AnimationState extends State<AnimationScreen> {
     'Fireworks',
     'Rolling',
     'Flare',
-    'FunkyTransition'
+    'FunkyTransition',
+    'WeirdTextField',
   ];
 
   @override
@@ -160,6 +162,10 @@ class AnimationState extends State<AnimationScreen> {
       case 18:
         Navigator.push(
             context, MaterialPageRoute(builder: (_) => FunkyTransitionView()));
+        break;
+      case 19:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => WeirdTextFieldView()));
         break;
       default:
         break;
