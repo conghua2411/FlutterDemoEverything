@@ -149,7 +149,15 @@ class AnimationState extends State<AnimationScreen> {
             context, MaterialPageRoute(builder: (_) => ClickEffect()));
         break;
       case 15:
-        Navigator.push(context, MaterialPageRoute(builder: (_) => Fireworks()));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => Fireworks(
+              skyHeight: MediaQuery.of(context).size.height,
+              skyWidth: MediaQuery.of(context).size.width,
+            ),
+          ),
+        );
         break;
       case 16:
         Navigator.push(
