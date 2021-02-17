@@ -17,11 +17,13 @@ class DeepLinkNativeState extends State<DeepLinkNativeDemo> {
   void initState() {
     super.initState();
 
-    Uri uri = Uri.parse(widget.url);
+    if (widget.url != null) {
+      Uri uri = Uri.parse(widget.url);
 
-    print('${uri.queryParameters}');
+      print('${uri.queryParameters}');
 
-    data = uri.queryParameters.toString();
+      data = uri.queryParameters.toString();
+    }
   }
 
   @override

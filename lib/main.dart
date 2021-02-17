@@ -196,15 +196,11 @@ class MyAppState extends State<MyApp> {
 
   Stream<String> get state => _stateController.stream;
 
-//  Sink<String> get stateSink => _stateController.sink;
-
   @override
   void dispose() {
     _stateController.close();
-    ConnectionStatusSingleton connectionStatus =
-        ConnectionStatusSingleton.getInstance();
-    connectionStatus.dispose();
     _linksStreamSubscription.cancel();
+    super.dispose();
   }
 
   @override
@@ -241,6 +237,7 @@ class MyAppState extends State<MyApp> {
   }
 
   _onRedirected(String uri) {
+    if (uri == null) return;
     print('deep_link_native: $uri');
     // Here can be any uri analysis, checking tokens etc, if it’s necessary
     // Throw deep link URI into the BloC's stream
