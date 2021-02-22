@@ -16,6 +16,8 @@ class _PaintDemoState extends State<PaintDemo> {
   Color penColor = Colors.primaries[0];
   double penSize = 1;
 
+  LineFactory lineFactory = SmoothLineFactory();
+
   @override
   void initState() {
     super.initState();
@@ -35,9 +37,9 @@ class _PaintDemoState extends State<PaintDemo> {
             ),
             onPressed: () {
               setState(() {
-                setState(() {
+                if (drawingLine.isNotEmpty) {
                   drawingLine.removeLast();
-                });
+                }
               });
             },
           ),
@@ -52,7 +54,7 @@ class _PaintDemoState extends State<PaintDemo> {
                   print(
                       'onPanStart: ${details.localPosition} ---- ${details.globalPosition}\n --- ${drawingLine.length}');
                   drawingLine.add(
-                    SmoothLine(
+                    lineFactory.createLine(
                       points: [],
                       penColor: penColor,
                       penSize: penSize,
@@ -108,6 +110,22 @@ class _PaintDemoState extends State<PaintDemo> {
                       child: Row(
                         children: [
                           IconButton(
+                            icon: Icon(Icons.edit),
+                            onPressed: () {
+                              _selectLineType().then((type) {
+                                if (type == LineType.Smooth) {
+                                  lineFactory = SmoothLineFactory();
+                                } else if (type == LineType.Normal) {
+                                  lineFactory = NormalLineFactory();
+                                } else if (type == LineType.Star) {
+                                  lineFactory = StarLineFactory();
+                                } else {
+                                  print('Type not found: $type');
+                                }
+                              });
+                            },
+                          ),
+                          IconButton(
                             icon: Icon(Icons.palette),
                             onPressed: () {
                               _showColorPicker(
@@ -146,6 +164,9 @@ class _PaintDemoState extends State<PaintDemo> {
 
   Future<Color> _showColorPicker({Color currentColor}) {
     return showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
       context: context,
       builder: (context) {
         return GridView.builder(
@@ -193,6 +214,9 @@ class _PaintDemoState extends State<PaintDemo> {
     double penSize = currentPenSize;
 
     return showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
       context: context,
       builder: (context) {
         return Column(
@@ -202,7 +226,7 @@ class _PaintDemoState extends State<PaintDemo> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Text(
                     'Adjust Pen Size',
                     style: TextStyle(
@@ -212,7 +236,7 @@ class _PaintDemoState extends State<PaintDemo> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: OutlinedButton(
                     child: Text(
                       'OK',
@@ -226,14 +250,16 @@ class _PaintDemoState extends State<PaintDemo> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
+                horizontal: 16.0,
                 vertical: 16,
               ),
               child: StatefulBuilder(
                 builder: (context, setState) {
                   return Slider(
-                    min: 0.5,
-                    max: 10,
+                    min: 1,
+                    max: 50,
+                    divisions: 10,
+                    label: '${(penSize ?? 1)}',
                     value: penSize ?? 1,
                     onChanged: (selection) {
                       setState(() {
@@ -242,6 +268,74 @@ class _PaintDemoState extends State<PaintDemo> {
                     },
                   );
                 },
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).padding.bottom,
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<LineType> _selectLineType() {
+    return showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      context: context,
+      builder: (context) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Select pen type',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            Container(
+              constraints: BoxConstraints(
+                maxHeight: 200,
+              ),
+              child: ListView(
+                padding: const EdgeInsets.all(8.0),
+                shrinkWrap: true,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: OutlinedButton(
+                      child: Text('Smooth Line'),
+                      onPressed: () {
+                        Navigator.of(context).pop(LineType.Smooth);
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: OutlinedButton(
+                      child: Text('Normal Line'),
+                      onPressed: () {
+                        Navigator.of(context).pop(LineType.Normal);
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: OutlinedButton(
+                      child: Text('Star Line'),
+                      onPressed: () {
+                        Navigator.of(context).pop(LineType.Star);
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(
