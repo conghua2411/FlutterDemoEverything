@@ -12,6 +12,7 @@ import 'package:flutter_app/listDemo/listView.dart';
 import 'package:flutter_app/list_dismissible/list_dismissible.dart';
 import 'package:flutter_app/navite_view/native_view.dart';
 import 'package:flutter_app/notification/NotiScreen.dart';
+import 'package:flutter_app/open_store/open_store_demo.dart';
 import 'package:flutter_app/pageSlide/PageSlideDemo.dart';
 import 'package:flutter_app/page_view_sistem_demo/page_view_sistem_demo.dart';
 import 'package:flutter_app/permission/permision_demo.dart';
@@ -845,6 +846,17 @@ class SecondRoute extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (_) => PlaceQueensPuzzle(),
+                      ),
+                    );
+                  },
+                ),
+                RaisedButton(
+                  child: Text('OpenStore'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => OpenStoreDemo(),
                       ),
                     );
                   },

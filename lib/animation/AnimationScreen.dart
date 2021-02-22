@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/animation/flare/list_flare.dart';
 import 'package:flutter_app/animation/funky_transition/funky_transition.dart';
+import 'package:flutter_app/animation/paint/paint_demo.dart';
 import 'package:flutter_app/animation/rolling/rolling_animation.dart';
 import 'package:flutter_app/animation/shake/shake_demo_screen.dart';
 import 'package:flutter_app/animation/slideButton/SlideButtonScreen.dart';
+import 'package:flutter_app/animation/smooth_progress_bar/smooth_progess_bar_demo.dart';
 import 'package:flutter_app/animation/weird_text_field/weird_text_field.dart';
 
 import 'animated_list/animated_list_demo.dart';
@@ -49,6 +51,8 @@ class AnimationState extends State<AnimationScreen> {
     'Flare',
     'FunkyTransition',
     'WeirdTextField',
+    'PaintDemo',
+    'SmoothProgressBarDemo',
   ];
 
   @override
@@ -174,6 +178,13 @@ class AnimationState extends State<AnimationScreen> {
       case 19:
         Navigator.push(
             context, MaterialPageRoute(builder: (_) => WeirdTextFieldView()));
+        break;
+      case 20:
+        Navigator.push(context, MaterialPageRoute(builder: (_) => PaintDemo()));
+        break;
+      case 21:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => SmoothProgressBarDemo()));
         break;
       default:
         break;
