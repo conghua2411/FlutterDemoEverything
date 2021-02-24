@@ -32,6 +32,7 @@ import 'package:flutter_app/transition/SlideTransition.dart';
 import 'package:flutter_app/uploadS3/upload_s3_screen.dart';
 import 'package:flutter_app/viewPager/ViewPager.dart';
 import 'package:flutter_app/wifi_info_demo/wifi_info_demo.dart';
+import 'package:flutter_app/win_hun_grid_view/win_hun_grid_view.dart';
 import 'package:flutter_app/xiangqi_game/xiangqui_game.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:image_picker/image_picker.dart';
@@ -857,6 +858,17 @@ class SecondRoute extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (_) => OpenStoreDemo(),
+                      ),
+                    );
+                  },
+                ),
+                RaisedButton(
+                  child: Text('WinHunGridView'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => WinHunGridView(),
                       ),
                     );
                   },
