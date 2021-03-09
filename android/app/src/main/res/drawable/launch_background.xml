@@ -11,7 +11,7 @@
     </item> -->
 
     <item>
-        <bitmap android:src="@mipmap/ic_send_message_enable"
+        <bitmap android:src="@mipmap/ic_launcher"
             android:gravity="center" />
     </item>
 </layer-list>
