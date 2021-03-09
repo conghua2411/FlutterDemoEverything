@@ -64,10 +64,12 @@ class _FireworkItemState extends State<FireworkItem>
       Future.delayed(
         widget.delay,
         () {
-          setState(() {
-            show = true;
-            _animationController.forward();
-          });
+          if (mounted) {
+            setState(() {
+              show = true;
+              _animationController.forward();
+            });
+          }
         },
       );
     }
