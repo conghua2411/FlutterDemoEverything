@@ -79,3 +79,4 @@ gradlew.bat
 ios/Flutter/.last_build_id
 local.properties
 *.lock
+ios/Flutter/flutter_export_environment.sh
