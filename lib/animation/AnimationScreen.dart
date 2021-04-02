@@ -7,6 +7,7 @@ import 'package:flutter_app/animation/shake/shake_demo_screen.dart';
 import 'package:flutter_app/animation/slideButton/SlideButtonScreen.dart';
 import 'package:flutter_app/animation/smooth_progress_bar/smooth_progess_bar_demo.dart';
 import 'package:flutter_app/animation/weird_text_field/weird_text_field.dart';
+import 'package:flutter_app/animation/wh_fb_story/facebook_story_demo.dart';
 
 import 'animated_list/animated_list_demo.dart';
 import 'bottomBox/BottomBox.dart';
@@ -53,6 +54,7 @@ class AnimationState extends State<AnimationScreen> {
     'WeirdTextField',
     'PaintDemo',
     'SmoothProgressBarDemo',
+    'WHFbStoryBar',
   ];
 
   @override
@@ -185,6 +187,10 @@ class AnimationState extends State<AnimationScreen> {
       case 21:
         Navigator.push(context,
             MaterialPageRoute(builder: (_) => SmoothProgressBarDemo()));
+        break;
+      case 22:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => FacebookStoryDemo()));
         break;
       default:
         break;
