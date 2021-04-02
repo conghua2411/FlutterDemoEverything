@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/connection/connection_screen.dart';
+import 'package:flutter_app/custom_button/custom_button_view.dart';
 import 'package:flutter_app/custom_drop_down/custom_drop_down.dart';
 import 'package:flutter_app/custom_text_field_view/custom_text_field_view.dart';
 import 'package:flutter_app/gridView/GridScreen.dart';
@@ -869,6 +870,17 @@ class SecondRoute extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (_) => WinHunGridView(),
+                      ),
+                    );
+                  },
+                ),
+                RaisedButton(
+                  child: Text('CustomButton'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => CustomButtonView(),
                       ),
                     );
                   },
